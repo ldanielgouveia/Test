@@ -17,24 +17,27 @@ _Researched October 3, 2026. Prices change often, so confirm in the network's ap
 
 ## List 1: Level 2 (slow) chargers, cheapest first
 
+All five are listed as **free** on ChargeHub. Ties are broken by 24/7 access, number of ports, and free parking.
+
 | # | Station | Address | Price | Ports | Hours / access | Notes |
 |---|---|---|---|---|---|---|
-| 1 | **Ancira Nissan** | 10835 IH-10 W, 78230 | **Free** | 2 × J1772 | Mon–Fri 8:30a–9p, Sat 9a–7p | Courtesy chargers at the dealership. Reviewers call it a free place to charge. |
-| 2 | **Gunn Nissan** | 750 NE Loop 410, 78209 | **Free** | 2 × J1772 | Dealership hours; call ahead | Also has 1 CCS fast charger, but users report payment glitches on it. |
-| 3 | **Urban Crest Station 1** (ChargePoint) | 3819 Harry Wurzbach Rd, 78209 | **Listed as free\*** | 2 | 24/7 | \*Only one listing (ChargeHub) says free. Check the ChargePoint app first. This is the only free lead open around the clock. |
-| 4 | **Ingram Park Nissan** | 6990 NW Loop 410, 78238 | **Free** | 1 × J1772 | Dealership hours | Also has a non-networked CCS fast charger; its price is unknown. |
-| 5 | **CPS Energy ChargePoint at H-E-B / Central Market** | 4820 Broadway, 78209 | **$1/hr** with a 2-hr minimum (about $0.14–0.16/kWh), or **$96/yr unlimited** (CPS FlexEV) | 4 | Store hours (unverified) | Part of CPS Energy's public ChargePoint network. It also has ports at H-E-B DeZavala (12777 W IH-10), Marbach (8219 Marbach Rd), Zarzamora (6910 S Zarzamora), Olmos (300 W Olmos Dr) and UTSA garages. |
+| 1 | **One Frost Bank** (ChargePoint) | 3838 Rogers Rd, 78251 | **Free** | 6 × J1772 | 24/7 | Most ports of any free site found. It's on Frost's office campus, so check that visitors are welcome. |
+| 2 | **Northside Honda** (ChargePoint) | 9100 San Pedro Ave, 78216 | **Free** | 4 × J1772 | 24/7 | At a dealership, but listed as open around the clock. |
+| 3 | **Brooks – Sidney Brooks** (ChargePoint) | 2510 & 2532 Sidney Brooks, 78235 | **Free** | 2 + 2 × J1772 | 24/7 | Two stations near the Greenline park entrance. |
+| 4 | **The Shops at La Cantera** (Pottery Barn + Anthropologie) | 15900 La Cantera Pkwy, 78256 | **Free** | 2 + 2 × J1772 | 6 AM–midnight; **2-hr parking limit** | Free mall parking; good for a top-up while shopping. |
+| 5 | **San Antonio City Hall** | 421 W Market St, 78205 | **Free** | 4 × J1772 | Hours not listed | Downtown, so parking rules or meters may apply. |
 
-**Speed:** public Level 2 units here are probably 6–7 kW, which adds about 20–25 miles of range per hour. The car can take 10.9 kW, but few public units supply that much.
+**Speed:** these are probably 6–7 kW (the Missions park unit is listed at 7.2 kW), which adds about 20–25 miles of range per hour. The car can take 10.9 kW, but few public units supply that much.
 
-**Data quality:** none of the "free" listings had a 2026 date. The dealership chargers are courtesy units and may favor customers. Check PlugShare or the ChargePoint app, or call, before relying on one.
+**Data quality:** free status comes from ChargeHub listings that aren't dated, and ChargePoint hosts can start charging at any time. Check the ChargePoint app before relying on one.
 
-### Other Level 2 options considered
+### More free or cheap Level 2 options
+- **Free, smaller or restricted:** Texas A&M–San Antonio, One University Way (2 ports, 24/7); San Antonio Missions National Historical Park, 6727 San Jose Dr (1 port, 7.2 kW); Best Western Roland Inn, 333 Roland Rd (1 port); Ancira Nissan, 10835 IH-10 W (2 ports, dealership hours); Gunn Nissan, 750 NE Loop 410 (2 ports); Ingram Park Nissan, 6990 NW Loop 410 (1 port).
+- **Free charging, but paid parking:** Pearl Brewery, 2102 Emma Koehler St (4 ports; garage $3–10); SAT airport short-term garage (8 ports).
+- **CPS Energy ChargePoint network:** **$1/hr** with a 2-hr minimum (about $0.14–0.16/kWh), or **$96/yr unlimited** (CPS FlexEV). Sites include H-E-B / Central Market at 4820 Broadway (4 ports), H-E-B DeZavala, Marbach, Zarzamora and Olmos, and UTSA garages.
 - **City of San Antonio "EVSA" Blink chargers** (200+ ports at libraries, parks, the Zoo garage, St. Mary's St. garage). The Blink IQ 200 hardware can give the car its full 10.9 kW. Prices are set per site and none were confirmed (one Blink site was quoted at $0.25/kWh + $0.49/session).
 - **Hotel Tesla destination chargers** (free for guests, adapter needed): Hyatt Regency Hill Country Resort, Grand Hyatt, Hyatt Regency Riverwalk, Comfort Suites (505 Live Oak St), Noble Inns – Oge Inn Riverwalk.
-- **SAT airport garages:** the charging is free but garage parking fees apply.
 - **IKEA Live Oak:** Blink Level 2 units (not free) plus a ChargePoint unit (price unknown).
-- **The Pearl:** ChargePoint in a paid garage ($3–10 parking).
 
 ---
 
@@ -113,6 +116,7 @@ The Tesla Huebner Oaks (11745 I-10 W) and Leon Springs H-E-B (24165 I-10 W) Supe
 Key sources:
 - dcfctracker station pages: [Tesla Converse](https://dcfctracker.com/stations/353827), [Tesla Horizon Hill](https://dcfctracker.com/stations/460354), [Rivian La Cantera](https://dcfctracker.com/stations/391124), [Big's / Slumber Pass](https://dcfctracker.com/stations/252162), [Circle K](https://dcfctracker.com/stations/417738), [South SA Buick GMC](https://dcfctracker.com/stations/317959), [EVgo Target #T0771](https://dcfctracker.com/stations/373124), [EVgo Target #T1785](https://dcfctracker.com/stations/373126), [Jordan Ford](https://dcfctracker.com/stations/388922), [bp pulse TA](https://dcfctracker.com/stations/459533), [IKEA Live Oak](https://dcfctracker.com/stations/460873)
 - IONNA pricing: [Welcome Price (evchargingstations.com)](https://evchargingstations.com/chargingnews/ionna-welcome-price/), [IONNA $0.20 promo (Electrek)](https://electrek.co/2026/05/18/ionna-slashes-dc-fast-charging-price-memorial-day/)
+- ChargeHub free Level 2 listings: [One Frost Bank](https://chargehub.com/en/stations/tx/san-antonio/one-frost-bank.html), [Northside Honda](https://chargehub.com/en/stations/tx/san-antonio/northside-honda.html), [2532 Sidney Brooks](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/2532-sidney-brooks/electric-car-stations-near-me?locId=77811), [La Cantera – Pottery Barn](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/the-shops-at-la-cantera-pottery-barn/electric-car-stations-near-me?locId=91930), [City Hall](https://chargehub.com/en/stations/tx/san-antonio/city-sanantonio-city-hall.html), [Missions NHP](https://chargehub.com/en/stations/tx/san-antonio/san-antonio-missions-national-historical-park.html)
 - [EVgo – 11311 Bandera Rd](https://www.evgo.com/find-a-charger/tx/san-antonio/11311-bandera-rd-585175/); [Electrify America pricing structure (Electrek)](https://electrek.co/2023/08/07/electrify-america-announces-its-changing-its-pricing-structure-this-month/)
 - ChargeHub: [Ancira Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ancira-nissan/electric-car-stations-near-me?locId=910), [Gunn Nissan](https://chargehub.com/en/full-details-page.html?locId=7800), [Ingram Park Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ingram-park-nissan/electric-car-stations-near-me?locId=912), [3819 Harry Wurzbach](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/alamo-area-council-of-governments/electric-car-stations-near-me?locId=128718); Open Charge Map: [Urban Crest Station 1](https://beta.openchargemap.org/poi/details/217831)
 - CPS Energy: [EV FAQ ($1/hr public charging)](https://cpsenergy.com/content/corporate/en/about-us/programs-services/electric-vehicles/ev-faq-terms.html), [Public Charging Program](https://aws.cpsenergy.com/content/dam/corporate/en/Documents/Environmental/Public%20Charging%20Program.pdf)
