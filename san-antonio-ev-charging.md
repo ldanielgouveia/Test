@@ -73,7 +73,7 @@ Ranked by the **lowest price available without a membership**. Tesla sites are c
 
 | Station | Address | Network | Stalls / max kW | Plug | Lowest price | Daytime | Hours |
 |---|---|---|---|---|---|---|---|
-| IONNA Rechargery @ Circle K | 5602 UTSA Blvd | IONNA | 4 / 400 | CCS ×3, NACS ×1 | $0.20 + tax (promo; normally ~$0.39) | same | 24/7 (check) |
+| IONNA Rechargery @ Circle K (opened Sep 15, 2026) | 5602 UTSA Blvd | IONNA | 4 / 400 | CCS ×3, NACS ×1 | $0.20 + tax (promo; IONNA's new Seguin site shows $0.39) | same | 24/7 (check) |
 | Tesla – Converse | 3835 E Loop 1604 N, Converse | Tesla | 12 / 250 | NACS (adapter) | $0.24 (10p–8a) | $0.57 | 24/7 |
 | Tesla – Horizon Hill | 3718 Horizon Hill Blvd | Tesla | 8 / 325 | NACS (adapter) | $0.26 (11p–9a) | ~$0.60 | 24/7 |
 | Rivian – La Cantera | 15908 La Cantera Pkwy | Rivian Adventure Network | 6 / 300 | CCS ×4, NACS ×2 | ~$0.35 | ~$0.51 | 24/7 |
@@ -83,7 +83,8 @@ Ranked by the **lowest price available without a membership**. Tesla sites are c
 | Circle K | 5239 US Hwy 87 E | Circle K | 4 / 180 | CCS | $0.43 | same | 24/7 |
 | Target #T1785 | 11311 Bandera Rd | EVgo | 4 / 350 | CCS | $0.44 (12–7a) + $0.99 session | $0.58–0.60 | 24/7 |
 | Target #T0771 | 2810 SW Military Dr | EVgo | 6 / 350 | CCS, NACS | $0.45 (12–8a) + $0.99 session | $0.52–0.59 | 24/7 |
-| IKEA Live Oak (Store 570) | Live Oak | Electrify America | 6 / ? | CCS | $0.48 | same | 24/7 |
+| IKEA Live Oak (Store 570) | Live Oak | Electrify America | 6 / 350 | CCS | $0.48 | same | 24/7 |
+| Walmart Supercenter (opened Sep 11, 2026) | 6703 W Loop 1604 N | Walmart | 12 / 400 | CCS, NACS | $0.45 | same | 24/7 |
 | TA I-10 East | 6170 I-10 E | bp pulse | 12 (4 CCS) / 400 | CCS, NACS | ~$0.48 | same | 24/7 |
 | Pilot Flying J #737 | 1815 N Foster Rd | GM Energy / EVgo | 4 / 350 | CCS | $0.53 | same | 24/7 |
 | Jordan Ford | 13010 N I-35 | ChargePoint | 2 / 160–200 | CCS | $0.55 + $0.99 | same | Mon–Sat 7a–7p |
@@ -98,6 +99,7 @@ Ranked by the **lowest price available without a membership**. Tesla sites are c
 | Tesla – N Loop 1604 E | 123 N Loop 1604 E | Tesla | 15 / 250 | NACS (adapter) | unknown | unknown | 24/7 |
 | Target Balcones Heights #T1523 | 4522 Fredericksburg Rd | EVgo | 6 / 350 | CCS | see app | | |
 | Heritage Square | 8226 Marbach Rd | EVgo | ? / 120 | CCS | unknown | | 24/7 |
+| Shell Recharge (opened Mar 2026) | 3600 N PanAm Expy | Shell Recharge | 6 / 120 | CCS | unknown | | |
 | Shell (likely open) | 25200 W I-10 | Shell Recharge | ~5 CCS / 180 | CCS | unknown | | 24/7 |
 | Northside Ford | 12300 San Pedro Ave | Ford Charge | 4 / 120 | CCS | unknown (may be customers only) | | Dealership |
 | Ingram Park Nissan | 6990 NW Loop 410 | Non-networked | 1 CCS | CCS | unknown (possibly free) | | Dealership |
@@ -115,6 +117,7 @@ The Tesla Huebner Oaks (11745 I-10 W) and Leon Springs H-E-B (24165 I-10 W) Supe
 
 Key sources:
 - dcfctracker station pages: [Tesla Converse](https://dcfctracker.com/stations/353827), [Tesla Horizon Hill](https://dcfctracker.com/stations/460354), [Rivian La Cantera](https://dcfctracker.com/stations/391124), [Big's / Slumber Pass](https://dcfctracker.com/stations/252162), [Circle K](https://dcfctracker.com/stations/417738), [South SA Buick GMC](https://dcfctracker.com/stations/317959), [EVgo Target #T0771](https://dcfctracker.com/stations/373124), [EVgo Target #T1785](https://dcfctracker.com/stations/373126), [Jordan Ford](https://dcfctracker.com/stations/388922), [bp pulse TA](https://dcfctracker.com/stations/459533), [IKEA Live Oak](https://dcfctracker.com/stations/460873)
+- dcfctracker new-station lists: [Texas](https://dcfctracker.com/states/tx), [IONNA](https://dcfctracker.com/networks/ionna), [Walmart](https://dcfctracker.com/networks/walmart)
 - IONNA pricing: [Welcome Price (evchargingstations.com)](https://evchargingstations.com/chargingnews/ionna-welcome-price/), [IONNA $0.20 promo (Electrek)](https://electrek.co/2026/05/18/ionna-slashes-dc-fast-charging-price-memorial-day/)
 - ChargeHub free Level 2 listings: [One Frost Bank](https://chargehub.com/en/stations/tx/san-antonio/one-frost-bank.html), [Northside Honda](https://chargehub.com/en/stations/tx/san-antonio/northside-honda.html), [2532 Sidney Brooks](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/2532-sidney-brooks/electric-car-stations-near-me?locId=77811), [La Cantera – Pottery Barn](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/the-shops-at-la-cantera-pottery-barn/electric-car-stations-near-me?locId=91930), [City Hall](https://chargehub.com/en/stations/tx/san-antonio/city-sanantonio-city-hall.html), [Missions NHP](https://chargehub.com/en/stations/tx/san-antonio/san-antonio-missions-national-historical-park.html)
 - [EVgo – 11311 Bandera Rd](https://www.evgo.com/find-a-charger/tx/san-antonio/11311-bandera-rd-585175/); [Electrify America pricing structure (Electrek)](https://electrek.co/2023/08/07/electrify-america-announces-its-changing-its-pricing-structure-this-month/)
