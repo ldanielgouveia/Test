@@ -6,13 +6,13 @@ _Researched October 3, 2026. Prices change often, so confirm in the network's ap
 
 ### Slow (Level 2), free first
 
-| # | Station | Price | Est. charging speed | Ports · hours | Location |
+| # | Station | Price | Est. charging speed | Ports · hours · access | Location |
 |---|---|---|---|---|---|
-| 1 | **One Frost Bank (ChargePoint)**<br>3838 Rogers Rd, 78251 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 6 · 24/7 (office campus; check visitors are allowed) | [Map](https://www.google.com/maps/search/?api=1&query=One+Frost+Bank%2C+3838+Rogers+Rd%2C+San+Antonio%2C+TX+78251) |
-| 2 | **Northside Honda (ChargePoint)**<br>9100 San Pedro Ave, 78216 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 24/7 | [Map](https://www.google.com/maps/search/?api=1&query=Northside+Honda%2C+9100+San+Pedro+Ave%2C+San+Antonio%2C+TX+78216) |
-| 3 | **Brooks – Sidney Brooks (ChargePoint)**<br>2532 Sidney Brooks, 78235 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 (2 stations, 2510 & 2532) · 24/7 | [Map](https://www.google.com/maps/search/?api=1&query=2532+Sidney+Brooks%2C+San+Antonio%2C+TX+78235) |
-| 4 | **The Shops at La Cantera (Pottery Barn + Anthropologie)**<br>15900 La Cantera Pkwy, 78256 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 6 AM–midnight, 2-hr parking limit | [Map](https://www.google.com/maps/search/?api=1&query=The+Shops+at+La+Cantera%2C+15900+La+Cantera+Pkwy%2C+San+Antonio%2C+TX+78256) |
-| 5 | **San Antonio City Hall**<br>421 W Market St, 78205 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · hours not listed; downtown parking rules may apply | [Map](https://www.google.com/maps/search/?api=1&query=San+Antonio+City+Hall%2C+421+W+Market+St%2C+San+Antonio%2C+TX+78205) |
+| 1 | **Northside Honda (ChargePoint)**<br>9100 San Pedro Ave, 78216 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 24/7 · open dealership lot | [Map](https://www.google.com/maps/search/?api=1&query=Northside+Honda%2C+9100+San+Pedro+Ave%2C+San+Antonio%2C+TX+78216) |
+| 2 | **The Greenline park at Brooks (ChargePoint)**<br>2510 & 2532 Sidney Brooks, 78235 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 (2 stations) · 24/7 · park entrance lot | [Map](https://www.google.com/maps/search/?api=1&query=2510+Sidney+Brooks%2C+San+Antonio%2C+TX+78235) |
+| 3 | **The Shops at La Cantera (Pottery Barn + Anthropologie)**<br>15900 La Cantera Pkwy, 78256 | **Free** | ~6–7 kW → ~20–25 mi/hr; a 2-hr stop adds ~45 mi | 4 · 6 AM–midnight · 2-hr parking limit · open mall lot | [Map](https://www.google.com/maps/search/?api=1&query=The+Shops+at+La+Cantera%2C+15900+La+Cantera+Pkwy%2C+San+Antonio%2C+TX+78256) |
+| 4 | **Ancira Nissan**<br>10835 IH-10 W, 78230 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 2 · Mon–Fri 8:30a–9p, Sat 9a–7p · dealership lot | [Map](https://www.google.com/maps/search/?api=1&query=Ancira+Nissan%2C+10835+IH-10+W%2C+San+Antonio%2C+TX+78230) |
+| 5 | **Mission San José – San Antonio Missions National Historical Park**<br>6727 San Jose Dr, 78214 | **Free** | 7.2 kW → ~25 mi/hr; 10→80% in ~7.5 hr | 1 · visitor lot; may close after park hours (about 9–5) | [Map](https://www.google.com/maps/search/?api=1&query=6727+San+Jose+Dr%2C+San+Antonio%2C+TX+78214) |
 
 ### Fast (DC), cheapest first
 
@@ -43,22 +43,23 @@ Charging times assume the Long Range battery (77.4 kWh). Tesla sites need the NA
 
 ## List 1: Level 2 (slow) chargers, cheapest first
 
-All five are listed as **free** on ChargeHub. Ties are broken by 24/7 access, number of ports, and free parking.
+All five are listed as **free** on ChargeHub. Sites that need an employee badge or are inside a gated or paid garage were left out. Ties are broken by 24/7 access, number of ports, and parking.
 
-| # | Station | Address | Price | Ports | Hours / access | Notes |
-|---|---|---|---|---|---|---|
-| 1 | **One Frost Bank** (ChargePoint) | 3838 Rogers Rd, 78251 | **Free** | 6 × J1772 | 24/7 | Most ports of any free site found. It's on Frost's office campus, so check that visitors are welcome. |
-| 2 | **Northside Honda** (ChargePoint) | 9100 San Pedro Ave, 78216 | **Free** | 4 × J1772 | 24/7 | At a dealership, but listed as open around the clock. |
-| 3 | **Brooks – Sidney Brooks** (ChargePoint) | 2510 & 2532 Sidney Brooks, 78235 | **Free** | 2 + 2 × J1772 | 24/7 | Two stations near the Greenline park entrance. |
-| 4 | **The Shops at La Cantera** (Pottery Barn + Anthropologie) | 15900 La Cantera Pkwy, 78256 | **Free** | 2 + 2 × J1772 | 6 AM–midnight; **2-hr parking limit** | Free mall parking; good for a top-up while shopping. |
-| 5 | **San Antonio City Hall** | 421 W Market St, 78205 | **Free** | 4 × J1772 | Hours not listed | Downtown, so parking rules or meters may apply. |
+| # | Station | Price | Est. charging speed | Ports · hours · access | Location |
+|---|---|---|---|---|---|
+| 1 | **Northside Honda (ChargePoint)**<br>9100 San Pedro Ave, 78216 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 24/7 · open dealership lot | [Map](https://www.google.com/maps/search/?api=1&query=Northside+Honda%2C+9100+San+Pedro+Ave%2C+San+Antonio%2C+TX+78216) |
+| 2 | **The Greenline park at Brooks (ChargePoint)**<br>2510 & 2532 Sidney Brooks, 78235 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 (2 stations) · 24/7 · park entrance lot | [Map](https://www.google.com/maps/search/?api=1&query=2510+Sidney+Brooks%2C+San+Antonio%2C+TX+78235) |
+| 3 | **The Shops at La Cantera (Pottery Barn + Anthropologie)**<br>15900 La Cantera Pkwy, 78256 | **Free** | ~6–7 kW → ~20–25 mi/hr; a 2-hr stop adds ~45 mi | 4 · 6 AM–midnight · 2-hr parking limit · open mall lot | [Map](https://www.google.com/maps/search/?api=1&query=The+Shops+at+La+Cantera%2C+15900+La+Cantera+Pkwy%2C+San+Antonio%2C+TX+78256) |
+| 4 | **Ancira Nissan**<br>10835 IH-10 W, 78230 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 2 · Mon–Fri 8:30a–9p, Sat 9a–7p · dealership lot | [Map](https://www.google.com/maps/search/?api=1&query=Ancira+Nissan%2C+10835+IH-10+W%2C+San+Antonio%2C+TX+78230) |
+| 5 | **Mission San José – San Antonio Missions National Historical Park**<br>6727 San Jose Dr, 78214 | **Free** | 7.2 kW → ~25 mi/hr; 10→80% in ~7.5 hr | 1 · visitor lot; may close after park hours (about 9–5) | [Map](https://www.google.com/maps/search/?api=1&query=6727+San+Jose+Dr%2C+San+Antonio%2C+TX+78214) |
 
 **Speed:** these are probably 6–7 kW (the Missions park unit is listed at 7.2 kW), which adds about 20–25 miles of range per hour. The car can take 10.9 kW, but few public units supply that much.
 
 **Data quality:** free status comes from ChargeHub listings that aren't dated, and ChargePoint hosts can start charging at any time. Check the ChargePoint app before relying on one.
 
 ### More free or cheap Level 2 options
-- **Free, smaller or restricted:** Texas A&M–San Antonio, One University Way (2 ports, 24/7); San Antonio Missions National Historical Park, 6727 San Jose Dr (1 port, 7.2 kW); Best Western Roland Inn, 333 Roland Rd (1 port); Ancira Nissan, 10835 IH-10 W (2 ports, dealership hours); Gunn Nissan, 750 NE Loop 410 (2 ports); Ingram Park Nissan, 6990 NW Loop 410 (1 port).
+- **Excluded as employee-only or garage sites:** One Frost Bank, 3838 Rogers Rd (Frost corporate campus); "City Hall" listing at 421 W Market St (actually the Market Street Garage).
+- **Free, smaller or restricted:** Texas A&M–San Antonio, One University Way (campus permit parking likely); Best Western Roland Inn, 333 Roland Rd (1 port, hotel); Gunn Nissan, 750 NE Loop 410 (2 ports); Ingram Park Nissan, 6990 NW Loop 410 (1 port).
 - **Free charging, but paid parking:** Pearl Brewery, 2102 Emma Koehler St (4 ports; garage $3–10); SAT airport short-term garage (8 ports).
 - **CPS Energy ChargePoint network:** **$1/hr** with a 2-hr minimum (about $0.14–0.16/kWh), or **$96/yr unlimited** (CPS FlexEV). Sites include H-E-B / Central Market at 4820 Broadway (4 ports), H-E-B DeZavala, Marbach, Zarzamora and Olmos, and UTSA garages.
 - **City of San Antonio "EVSA" Blink chargers** (200+ ports at libraries, parks, the Zoo garage, St. Mary's St. garage). The Blink IQ 200 hardware can give the car its full 10.9 kW. Prices are set per site and none were confirmed (one Blink site was quoted at $0.25/kWh + $0.49/session).
@@ -145,7 +146,7 @@ Key sources:
 - dcfctracker station pages: [Tesla Converse](https://dcfctracker.com/stations/353827), [Tesla Horizon Hill](https://dcfctracker.com/stations/460354), [Rivian La Cantera](https://dcfctracker.com/stations/391124), [Big's / Slumber Pass](https://dcfctracker.com/stations/252162), [Circle K](https://dcfctracker.com/stations/417738), [South SA Buick GMC](https://dcfctracker.com/stations/317959), [EVgo Target #T0771](https://dcfctracker.com/stations/373124), [EVgo Target #T1785](https://dcfctracker.com/stations/373126), [Jordan Ford](https://dcfctracker.com/stations/388922), [bp pulse TA](https://dcfctracker.com/stations/459533), [IKEA Live Oak](https://dcfctracker.com/stations/460873)
 - dcfctracker new-station lists: [Texas](https://dcfctracker.com/states/tx), [IONNA](https://dcfctracker.com/networks/ionna), [Walmart](https://dcfctracker.com/networks/walmart)
 - IONNA pricing: [Welcome Price (evchargingstations.com)](https://evchargingstations.com/chargingnews/ionna-welcome-price/), [IONNA $0.20 promo (Electrek)](https://electrek.co/2026/05/18/ionna-slashes-dc-fast-charging-price-memorial-day/)
-- ChargeHub free Level 2 listings: [One Frost Bank](https://chargehub.com/en/stations/tx/san-antonio/one-frost-bank.html), [Northside Honda](https://chargehub.com/en/stations/tx/san-antonio/northside-honda.html), [2532 Sidney Brooks](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/2532-sidney-brooks/electric-car-stations-near-me?locId=77811), [La Cantera – Pottery Barn](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/the-shops-at-la-cantera-pottery-barn/electric-car-stations-near-me?locId=91930), [City Hall](https://chargehub.com/en/stations/tx/san-antonio/city-sanantonio-city-hall.html), [Missions NHP](https://chargehub.com/en/stations/tx/san-antonio/san-antonio-missions-national-historical-park.html)
+- ChargeHub free Level 2 listings: [Northside Honda](https://chargehub.com/en/stations/tx/san-antonio/northside-honda.html), [2532 Sidney Brooks](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/2532-sidney-brooks/electric-car-stations-near-me?locId=77811), [La Cantera – Pottery Barn](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/the-shops-at-la-cantera-pottery-barn/electric-car-stations-near-me?locId=91930), [City Hall](https://chargehub.com/en/stations/tx/san-antonio/city-sanantonio-city-hall.html), [Missions NHP](https://chargehub.com/en/stations/tx/san-antonio/san-antonio-missions-national-historical-park.html)
 - [EVgo – 11311 Bandera Rd](https://www.evgo.com/find-a-charger/tx/san-antonio/11311-bandera-rd-585175/); [Electrify America pricing structure (Electrek)](https://electrek.co/2023/08/07/electrify-america-announces-its-changing-its-pricing-structure-this-month/)
 - ChargeHub: [Ancira Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ancira-nissan/electric-car-stations-near-me?locId=910), [Gunn Nissan](https://chargehub.com/en/full-details-page.html?locId=7800), [Ingram Park Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ingram-park-nissan/electric-car-stations-near-me?locId=912), [3819 Harry Wurzbach](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/alamo-area-council-of-governments/electric-car-stations-near-me?locId=128718); Open Charge Map: [Urban Crest Station 1](https://beta.openchargemap.org/poi/details/217831)
 - CPS Energy: [EV FAQ ($1/hr public charging)](https://cpsenergy.com/content/corporate/en/about-us/programs-services/electric-vehicles/ev-faq-terms.html), [Public Charging Program](https://aws.cpsenergy.com/content/dam/corporate/en/Documents/Environmental/Public%20Charging%20Program.pdf)
