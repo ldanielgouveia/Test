@@ -2,6 +2,32 @@
 
 _Researched October 3, 2026. Prices change often, so confirm in the network's app before you drive over._
 
+## Quick view: top 5 of each, with map links and speed for a 2023 Ioniq 5
+
+### Slow (Level 2), free first
+
+| # | Station | Price | Est. charging speed | Ports · hours | Location |
+|---|---|---|---|---|---|
+| 1 | **One Frost Bank (ChargePoint)**<br>3838 Rogers Rd, 78251 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 6 · 24/7 (office campus; check visitors are allowed) | [Map](https://www.google.com/maps/search/?api=1&query=One+Frost+Bank%2C+3838+Rogers+Rd%2C+San+Antonio%2C+TX+78251) |
+| 2 | **Northside Honda (ChargePoint)**<br>9100 San Pedro Ave, 78216 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 24/7 | [Map](https://www.google.com/maps/search/?api=1&query=Northside+Honda%2C+9100+San+Pedro+Ave%2C+San+Antonio%2C+TX+78216) |
+| 3 | **Brooks – Sidney Brooks (ChargePoint)**<br>2532 Sidney Brooks, 78235 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 (2 stations, 2510 & 2532) · 24/7 | [Map](https://www.google.com/maps/search/?api=1&query=2532+Sidney+Brooks%2C+San+Antonio%2C+TX+78235) |
+| 4 | **The Shops at La Cantera (Pottery Barn + Anthropologie)**<br>15900 La Cantera Pkwy, 78256 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · 6 AM–midnight, 2-hr parking limit | [Map](https://www.google.com/maps/search/?api=1&query=The+Shops+at+La+Cantera%2C+15900+La+Cantera+Pkwy%2C+San+Antonio%2C+TX+78256) |
+| 5 | **San Antonio City Hall**<br>421 W Market St, 78205 | **Free** | ~6–7 kW → ~20–25 mi of range/hr; 10→80% in ~8 hr | 4 · hours not listed; downtown parking rules may apply | [Map](https://www.google.com/maps/search/?api=1&query=San+Antonio+City+Hall%2C+421+W+Market+St%2C+San+Antonio%2C+TX+78205) |
+
+### Fast (DC), cheapest first
+
+| # | Station | Price | 10→80% cost | Est. charging speed (your car) | Stalls · notes | Location |
+|---|---|---|---|---|---|---|
+| 1 | **IONNA Rechargery @ Circle K**<br>5602 UTSA Blvd, 78249 | **$0.20/kWh** + tax (launch promo; normally ~$0.39) | ~$11 | 400 kW → **~230 kW peak**, 10→80% in **~18–20 min** | 4 (3 CCS, 1 NACS) · no adapter | [Map](https://www.google.com/maps/search/?api=1&query=5602+UTSA+Blvd%2C+San+Antonio%2C+TX+78249) |
+| 2 | **Tesla Supercharger – Converse**<br>3835 E Loop 1604 N, Converse, TX 78109 | **$0.24/kWh** 10 PM–8 AM · $0.57 daytime | ~$13 night / ~$31 day | 250 kW → **~100 kW max**, 10→80% in **~35–45 min** | 12 · needs adapter | [Map](https://www.google.com/maps/search/?api=1&query=3835+E+Loop+1604+N%2C+Converse%2C+TX+78109) |
+| 3 | **Tesla Supercharger – Horizon Hill (Starbucks)**<br>3718 Horizon Hill Blvd, 78229 | **$0.26/kWh** 11 PM–9 AM · ~$0.60 daytime | ~$14 night / ~$32 day | 325 kW → **~100 kW max**, 10→80% in **~35–45 min** | 8 · needs adapter | [Map](https://www.google.com/maps/search/?api=1&query=3718+Horizon+Hill+Blvd%2C+San+Antonio%2C+TX+78229) |
+| 4 | **Rivian Adventure Network – The Shops at La Cantera**<br>15908 La Cantera Pkwy, 78256 | **~$0.35/kWh** off-peak · ~$0.51 peak | ~$19 / ~$28 | 300 kW → **~200+ kW**, 10→80% in **~20–25 min** | 6 (4 CCS) · no adapter · Rivian app | [Map](https://www.google.com/maps/search/?api=1&query=15908+La+Cantera+Pkwy%2C+San+Antonio%2C+TX+78256) |
+| 5 | **ChargePoint at Big's (Slumber Pass Ex Big's 210)**<br>25580 Blanco Rd, 78260 | **$0.35/kWh + $0.99/session**, all day | ~$20 | 125 kW → **~100–125 kW**, 10→80% in **~30–35 min** | 1 stall · no adapter | [Map](https://www.google.com/maps/search/?api=1&query=25580+Blanco+Rd%2C+San+Antonio%2C+TX+78260) |
+
+Charging times assume the Long Range battery (77.4 kWh). Tesla sites need the NACS adapter; the car charges at only ~100 kW there.
+
+---
+
 ## What the car can use
 
 | | 2023 Ioniq 5 |
