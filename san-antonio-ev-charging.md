@@ -40,17 +40,17 @@ _Researched October 3, 2026. Prices change often, so confirm in the network's ap
 
 ## List 2: DC fast chargers, cheapest first
 
-Ranked by the **lowest price available without a membership**. Tesla sites are cheapest overnight but among the most expensive during the day.
+Ranked by the **lowest price available without a membership**. Tesla sites are cheapest overnight but among the most expensive during the day. The original version of this list missed the IONNA site because the search-based sources hadn't indexed it yet; it was added after it was spotted on IONNA's own site.
 
 | # | Station | Address | Cheapest price (when) | Daytime price | 10→80% cost | Stalls / max kW | Notes |
 |---|---|---|---|---|---|---|---|
-| 1 | **Tesla Supercharger – Converse** | 3835 E Loop 1604 N, Converse (NE San Antonio) | **$0.24/kWh** (10 PM–8 AM) | $0.57/kWh (8 AM–10 PM) | ~$13 night / ~$31 day | 12 / 250 kW | Adapter needed; ~100 kW for your car. 24/7. Members ($12.99/mo) pay $0.18 night / $0.43 day. |
-| 2 | **Tesla Supercharger – Horizon Hill (Starbucks)** | 3718 Horizon Hill Blvd, 78229 | **$0.26/kWh** (11 PM–9 AM) | ~$0.60/kWh | ~$14 / ~$32 | 8 / 325 kW | Adapter needed. Opened May 2026. 24/7. Members pay $0.19 at night. |
-| 3 | **Rivian Adventure Network – The Shops at La Cantera** | 15908 La Cantera Pkwy, 78256 | **~$0.35/kWh** (off-peak) | ~$0.51/kWh | ~$19 / ~$28 | 6 (4 × CCS) / 300 kW | **No adapter.** 300 kW units, so close to the car's full speed. Open to all EVs; pay in the Rivian app. Idle fee $0.50/min after 10 min. |
-| 4 | **ChargePoint – Big's station** ("Slumber Pass Ex Big's 210 #2") | 25580 Blanco Rd, 78260 | **$0.35/kWh + $0.99/session** (all day) | same | ~$20 | 1 / 125 kW | Single stall. 24/7. Cheapest daytime option. |
-| 5 | **ChargePoint – "USIO Fast Station"** | 3611 Paesanos Pkwy, 78231 | **$0.39/kWh + $0.99/session** (all day) | same | ~$22 | 1 / 62 kW | Single stall and slow (about 1 hr for 10→80%). 24/7. |
+| 1 | **IONNA Rechargery @ Circle K** | 5602 UTSA Blvd, 78249 | **$0.20/kWh + tax** (seen on IONNA's site Oct 2026) | same, all day | ~$11 (~$21 at $0.39) | 4 (3 × CCS, 1 × NACS) / 400 kW | **No adapter, full ~230 kW speed.** $0.20 is probably IONNA's temporary "Welcome Price" for new sites; its regular price is about **$0.39/kWh**. At $0.39 it would still rank #5. |
+| 2 | **Tesla Supercharger – Converse** | 3835 E Loop 1604 N, Converse (NE San Antonio) | **$0.24/kWh** (10 PM–8 AM) | $0.57/kWh (8 AM–10 PM) | ~$13 night / ~$31 day | 12 / 250 kW | Adapter needed; ~100 kW for your car. 24/7. Members ($12.99/mo) pay $0.18 night / $0.43 day. |
+| 3 | **Tesla Supercharger – Horizon Hill (Starbucks)** | 3718 Horizon Hill Blvd, 78229 | **$0.26/kWh** (11 PM–9 AM) | ~$0.60/kWh | ~$14 / ~$32 | 8 / 325 kW | Adapter needed. Opened May 2026. 24/7. Members pay $0.19 at night. |
+| 4 | **Rivian Adventure Network – The Shops at La Cantera** | 15908 La Cantera Pkwy, 78256 | **~$0.35/kWh** (off-peak) | ~$0.51/kWh | ~$19 / ~$28 | 6 (4 × CCS) / 300 kW | **No adapter.** 300 kW units, so close to the car's full speed. Open to all EVs; pay in the Rivian app. Idle fee $0.50/min after 10 min. |
+| 5 | **ChargePoint – Big's station** ("Slumber Pass Ex Big's 210 #2") | 25580 Blanco Rd, 78260 | **$0.35/kWh + $0.99/session** (all day) | same | ~$20 | 1 / 125 kW | Single stall. 24/7. Cheapest daytime option. |
 
-**Just missed: Circle K**, 5239 US Hwy 87 E, 78222. $0.43/kWh flat, 4 stalls, 180 kW, 24/7 (about $23 for 10→80%). It's the best cheap pick when you need real speed or more than one stall during the day.
+**Just missed:** ChargePoint "USIO Fast Station", 3611 Paesanos Pkwy ($0.39/kWh + $0.99/session, but a single slow 62 kW stall), and Circle K, 5239 US Hwy 87 E ($0.43/kWh flat, 4 stalls, 180 kW, 24/7).
 
 **No free public DC fast chargers were found.** The dealership CCS units at Ingram Park Nissan and Gunn Nissan might be free but are unverified.
 
@@ -70,6 +70,7 @@ Ranked by the **lowest price available without a membership**. Tesla sites are c
 
 | Station | Address | Network | Stalls / max kW | Plug | Lowest price | Daytime | Hours |
 |---|---|---|---|---|---|---|---|
+| IONNA Rechargery @ Circle K | 5602 UTSA Blvd | IONNA | 4 / 400 | CCS ×3, NACS ×1 | $0.20 + tax (promo; normally ~$0.39) | same | 24/7 (check) |
 | Tesla – Converse | 3835 E Loop 1604 N, Converse | Tesla | 12 / 250 | NACS (adapter) | $0.24 (10p–8a) | $0.57 | 24/7 |
 | Tesla – Horizon Hill | 3718 Horizon Hill Blvd | Tesla | 8 / 325 | NACS (adapter) | $0.26 (11p–9a) | ~$0.60 | 24/7 |
 | Rivian – La Cantera | 15908 La Cantera Pkwy | Rivian Adventure Network | 6 / 300 | CCS ×4, NACS ×2 | ~$0.35 | ~$0.51 | 24/7 |
@@ -111,6 +112,7 @@ The Tesla Huebner Oaks (11745 I-10 W) and Leon Springs H-E-B (24165 I-10 W) Supe
 
 Key sources:
 - dcfctracker station pages: [Tesla Converse](https://dcfctracker.com/stations/353827), [Tesla Horizon Hill](https://dcfctracker.com/stations/460354), [Rivian La Cantera](https://dcfctracker.com/stations/391124), [Big's / Slumber Pass](https://dcfctracker.com/stations/252162), [Circle K](https://dcfctracker.com/stations/417738), [South SA Buick GMC](https://dcfctracker.com/stations/317959), [EVgo Target #T0771](https://dcfctracker.com/stations/373124), [EVgo Target #T1785](https://dcfctracker.com/stations/373126), [Jordan Ford](https://dcfctracker.com/stations/388922), [bp pulse TA](https://dcfctracker.com/stations/459533), [IKEA Live Oak](https://dcfctracker.com/stations/460873)
+- IONNA pricing: [Welcome Price (evchargingstations.com)](https://evchargingstations.com/chargingnews/ionna-welcome-price/), [IONNA $0.20 promo (Electrek)](https://electrek.co/2026/05/18/ionna-slashes-dc-fast-charging-price-memorial-day/)
 - [EVgo – 11311 Bandera Rd](https://www.evgo.com/find-a-charger/tx/san-antonio/11311-bandera-rd-585175/); [Electrify America pricing structure (Electrek)](https://electrek.co/2023/08/07/electrify-america-announces-its-changing-its-pricing-structure-this-month/)
 - ChargeHub: [Ancira Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ancira-nissan/electric-car-stations-near-me?locId=910), [Gunn Nissan](https://chargehub.com/en/full-details-page.html?locId=7800), [Ingram Park Nissan](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/ingram-park-nissan/electric-car-stations-near-me?locId=912), [3819 Harry Wurzbach](https://chargehub.com/en/ev-charging-stations/united-states/texas/san-antonio/alamo-area-council-of-governments/electric-car-stations-near-me?locId=128718); Open Charge Map: [Urban Crest Station 1](https://beta.openchargemap.org/poi/details/217831)
 - CPS Energy: [EV FAQ ($1/hr public charging)](https://cpsenergy.com/content/corporate/en/about-us/programs-services/electric-vehicles/ev-faq-terms.html), [Public Charging Program](https://aws.cpsenergy.com/content/dam/corporate/en/Documents/Environmental/Public%20Charging%20Program.pdf)
