@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "mcp__Notion"
+      "mcp__Notion",
+      "mcp__2ed71e78-75fe-480e-8f47-327de7e06dfb"
     ]
   }
 }
