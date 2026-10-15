@@ -97,9 +97,16 @@ on a listed page is always the inserted one.)
 - **Ideas links**: 28 Notes pages had links to Ideas that couldn't be restored while Ideas is
   in the trash. They're in `notes-ideas-links-pending.json` (Notes page id → Ideas page ids).
 - **Notes link backup** (from before the move) is in `notes-links-backup.txt`.
-- Leo must update his **leo-notion-system skill** (claude.ai → Settings → Skills): Notes data
-  source → `collection://7f630e5e-46f9-83c9-9856-07a8163e2bb6`, Tasks data source →
-  `collection://05330e5e-46f9-82d4-91fb-8759c2c55cdb`.
+- **When every database is moved, write Leo a new skill** to replace the out-of-date
+  `leo-notion-system` one (he'll add it himself; don't ask him to hand-edit the old one).
+  Start from the old skill's text (load `anthropic-skills:leo-notion-system`), keep all its
+  rules, and update: every data source ID to the new board databases (so far Notes →
+  `collection://7f630e5e-46f9-83c9-9856-07a8163e2bb6`, Tasks →
+  `collection://05330e5e-46f9-82d4-91fb-8759c2c55cdb`), the relation column names after the
+  renames above (the "(old)" columns are leftovers to ignore), the Template-leftover columns
+  to ignore, and the board-view rule (never delete or recreate a board view). Save it as a
+  `SKILL.md` in this folder (use the `anthropic-skills:skill-creator` skill) and tell Leo how
+  to add it.
 - Scheduled routines (only editable from their own thread, or switched off in Routines):
   - **"Go through yesterday's notes"** still reads the old, empty Notes data source.
     Leo said he doesn't need it right now, so he can switch it off.
