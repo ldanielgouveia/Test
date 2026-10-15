@@ -4,6 +4,12 @@ Read this first, then use the `anthropic-skills:leo-notion-system` skill for Leo
 (never delete anything, keep his words exactly, never mark anything done/dropped).
 Some IDs in that skill are out of date; the ones below are current.
 
+**Approval prompts:** Leo hates clicking "Allow once" hundreds of times. Those prompts come
+from the Notion connector's own tool permissions on claude.ai, not from Claude Code, so
+`.claude/settings.json` and Auto mode don't stop them. If a Notion write asks for approval,
+stop and tell Leo to set that tool to "Always allow" at https://claude.ai/customize/connectors
+(Notion → tool permissions) before doing any bulk work.
+
 ## The goal
 
 Leo wants every database shown as a **board** using his special **Board Template**
