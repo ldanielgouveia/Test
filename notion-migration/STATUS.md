@@ -83,6 +83,27 @@ empty, in their old places; the new ones are in "Extras"). Icons were not copied
   pages that weren't in Atomic at backup time (the 8 late pages); those pages now carry the links
   themselves.
 
+## Projects split into Goals and Tasks (Oct 15)
+
+Leo wants only two levels: Goals and Tasks. The 46 projects were sorted by judgement (ongoing
+direction → Goal, finishable piece of work → Task) and moved; titles, Area, Why, Start, Target kept.
+The Projects database is left in place, empty. Backup: `backup-projects-before-split.json`;
+plan: `projects-split-plan.json`.
+
+- **Became Goals (32):** 1.1 Having clarity of where I am going in this life; 1.2 Figuring out what kind of work fits me; 2.1 Finding a job I can sustain; 2.2 Getting out of debt and reducing expenses; 2.5 Making money from reselling; 2.6 Working on side hustles for some easy money; 2.7 Building financial freedom; 3.1 Building my realtor services business; 3.2 Getting clients for the realtors I help; 3.4 Helping my aunt Fatima grow as a realtor; 3.6 Building a visual and design business; 3.7 Creating and publishing my own content; 4.4 Developing my appearance and personal style; 4.5 Eating in a way that supports my health; 4.6 Getting stronger and consistent with exercise; 4.7 Sleeping and recovering well; 4.8 Making room for nature / play / adventure; 5.1 Getting therapy and doing the healing work; 5.2 Learning to say what I really think; 5.4 Understanding myself through mystic knowledge; 5.5 Reading and learning from books; 6.1 Building close friendships and community; 6.2 Building healthier relationships with family; 6.3 Finding a healthy romantic relationship; 6.4 Finding people to work with; 7.1 Building a sustainable daily routine; 7.2 Following through on important work; 7.3 Getting structure and accountability from outside; 7.4 Regaining control of internet use; 8.3 Making my notes and knowledge useful; 9.1 Creating a minimal acceptable foundation in this city; 9.4 Finding where I want to live longterm.
+- **Became Tasks (14):** 1.3 Deciding whether and what to study; 2.3 Getting taxes and business filings sorted; 2.4 Getting emergency cash when I'm broke; 3.3 Learning what makes realtors successful; 3.5 Taking my first steps to help people now; 4.1 Getting the ADHD meds I need; 4.2 Getting health checks and fixing my stomach; 4.3 Addressing hair loss and scalp health; 5.3 Understanding my Human Design chart; 8.1 Random mundane responsibilities; 8.2 Organizing my digital accounts; 9.2 Finding a home and compatible roommate; 9.3 Sorting out my car and transportation; 9.5 Deciding whether to leave the US for Spain.
+- A project-goal's old goals are now its **Sub-items** (their "Parent item" = the project-goal);
+  its old tasks are in the goal's **Tasks** column. A project-task's old tasks are its **Sub-items**;
+  its old goals are in its **Goals** column. Atomic and Reminders links carried over.
+- Status: goals keep Active/Paused (new "Status" select in Goals). Tasks got Active → Doing,
+  Paused → To-do (the old project status is in the backup).
+- Column changes: Goals got Status, Why, Start, Target, Reminders (two-way with Reminders "Goals");
+  Goals "Old project" → **Tasks** (two-way with Tasks "Goals"); Reminders "Old project" → **Tasks**
+  (two-way with Tasks "Reminders"); template columns that clashed → `Template Status`/`Template Tasks`.
+  The old project link columns everywhere are now **"Projects (moved)"** (empty board, ignore).
+- Note: the new Atomic database now shows the title "Notes" and the Notes database "Inbox" in
+  Notion (renamed in Notion, not by this session); data source IDs are unchanged.
+
 ## Still to move
 
 | Database | Database URL | Data source |
