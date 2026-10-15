@@ -79,18 +79,28 @@ For each one, Leo duplicates the Board Template first and tells you which copy i
    (`update_properties`, one call per page; subagents in parallel work well).
 6. **Verify**: old database empty, link totals match the backup, spot-check pages.
 
-## Unfinished: remove the bold title lines (Leo asked for this to be undone)
+## Done: bold title lines removed (Oct 15)
 
-Earlier, a bold line with the page's title was inserted at the very top of some Notes pages.
-Leo changed his mind: **remove only that inserted line** and keep page titles as they are.
+Leo asked to undo the bold title line that had been inserted at the top of some Notes pages.
+Every page in `bold-title-pages.txt` (41) was fetched. Where the first line was exactly
+`**<page title>**`, only that line was removed (`update_content`) and the page re-fetched to
+confirm it now starts with its original text. Titles were not touched.
 
-Rule: only for the pages listed in `bold-title-pages.txt`. For each, fetch the page; if the
-very first line of the content is exactly `**<page title>**`, remove just that line
-(`notion-update-page`, `update_content`, old_str = that line plus the following newline,
-new_str = ""), then fetch again to confirm the page now starts with its original text. If the
-first line isn't exactly that, leave the page alone and list it. (The insert was only ever
-attempted on pages whose text did NOT already start with the title, so a matching first line
-on a listed page is always the inserted one.)
+- **Removed (19):** 3f930e5e46f981f9af32dd9c2a6300a4, 3f930e5e46f98103becee83dd6551003,
+  3f930e5e46f98105949beaa26e0a3c1a, 3f930e5e46f9810ab098d6dadc3fe83f,
+  3f930e5e46f981108481ca6db2fededa, 3f930e5e46f98121a7dafd20aff9bec4,
+  3f930e5e46f981529b19ddf6396f3fa1, 3f930e5e46f981559079fa723b5e63a6,
+  3f930e5e46f9815abc0ad9d2fccaf614, 3f930e5e46f98165a9bffb191d5142d3,
+  3f930e5e46f98166a9b2cb1cd6405b8d, 3f930e5e46f98173ab81c63396738652,
+  3f930e5e46f981759412f8aea38c5d64, 3f930e5e46f981a88a38c76906a085ee,
+  3f930e5e46f981b18fe3f33bbea547cf, 3f930e5e46f981b3aeafeacde4878e86,
+  3f930e5e46f981b6af33e3f0ab15066d, 3f930e5e46f981b9adc1d648a995f918,
+  3f930e5e46f981dfbac5c197fcb29a91.
+- **Left alone (22), first line was not the bold title** (no bold line was ever inserted, or
+  it was declined): 3f930e5e46f981239714efe10646d3b7 ("Motivation I didn't have before",
+  starts with his text), 3fa30e5e46f9817dbab6dab767fbcaa7 (starts `## Staying by the beach`),
+  and all 20 other session B pages (they start with a `##`/`###` heading, a gray "Pasted"
+  callout, or a code block).
 
 ## Other open items
 
