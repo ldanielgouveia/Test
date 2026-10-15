@@ -28,6 +28,11 @@ database, and Claude moves all pages from the old database into the copy.
 |---|---|---|---|
 | Notes (247 pages) | `collection://7f630e5e-46f9-83c9-9856-07a8163e2bb6` | https://app.notion.com/p/3fa30e5e46f9800f9985c0b313f8f42a | `a96648f5-173c-4cf0-b785-3b96ff16e2d2` |
 | Tasks (175 pages) | `collection://05330e5e-46f9-82d4-91fb-8759c2c55cdb` | https://app.notion.com/p/3fa30e5e46f98092a4d4f4bcdf467aba | `3eb30e5e-46f9-8036-a972-000bfa87308c` |
+| Atomic (318 pages) | `collection://e1c30e5e-46f9-8332-9633-8766ed4e4f48` | https://app.notion.com/p/3fa30e5e46f9807f8d6af86089c196c6 (was "Board Template (1)") | `cbb37999-b611-429c-b09a-c7454523c16e` |
+| Resources (145 pages) | `collection://4fb30e5e-46f9-833c-aa62-8788dd9c354b` | https://app.notion.com/p/3fa30e5e46f980628b41da580ddb4448 (was "Board Template (2)") | `0315e595-76a7-47d9-9e5d-51e8303563f3` |
+| Projects (46 pages) | `collection://47330e5e-46f9-822c-a444-8712a8226466` | https://app.notion.com/p/3fa30e5e46f980479777f4023f2a6eac (was "Board Template (3)") | `232b68d1-6d29-40c0-a4f6-3a73ba96a377` |
+| Goals (160 pages) | `collection://3df30e5e-46f9-824a-a7d6-07e6cd262afb` | https://app.notion.com/p/3fa30e5e46f980418e38c55e8890b1f1 (was "Board Template (4)") | `3a4a0fae-d643-4bb4-96f1-406bba5947bb` |
+| Reminders (98 pages) | `collection://f1830e5e-46f9-83f1-a64f-0733b0f703f8` | https://app.notion.com/p/3e230e5e46f9803487befad583763611 (was the original "Board Template") | `bf2f65b2-b0a0-48fd-9065-048e7041d40d` |
 
 Old databases were left in place, empty. Nothing was deleted.
 
@@ -47,18 +52,42 @@ still hold the old links):
   `Template Status`) where they clashed with real names. A leftover status column gives
   every moved page "Not started"; ignore it.
 
+## Five more moved (Oct 15)
+
+Leo said the 5 templates in Extras were for the 5 remaining databases (Ideas aside), so they were
+used in this order: Board Template (1) Atomic, (2) Resources, (3) Projects, (4) Goals, and the
+original **Board Template** for Reminders. **There is no unused Board Template left**; for Ideas,
+Leo needs to duplicate one of the board databases (or make a new template) first.
+The new databases are named like the old ones, and both still sit side by side (the old ones are
+empty, in their old places; the new ones are in "Extras"). Icons were not copied (the API can't).
+
+- Backups (all properties and links, taken before the move): `backup-atomic.json`,
+  `backup-atomic-late8.json`, `backup-resources.json`, `backup-projects.json`, `backup-goals.json`,
+  `backup-reminders.json`. Link plan used for the restore: `restore-plan-5dbs.json`.
+- Verified after the restore: page counts and every link total match the backups; old databases empty.
+- 8 Atomic pages written Oct 14 were missing from the first backup (added by another session
+  while this ran); they were backed up, moved and relinked separately. If anything still writes to
+  the old data sources (e.g. the scheduled routines), it will land in the old empty databases.
+- Column renames this time (renamed, never removed; "(old)" columns hold the old links):
+  Notes `Atomic/Goals/Projects/Reminders/Resources` → `… (old)`; Tasks
+  `Atomic/Goals/Projects/Reminders/Resources` → `… (old)`. New columns with the original names
+  point to the new databases. In the copies, clashing template columns became `Template …`
+  (`Template Tasks`, `Template Topic`, `Template Type`, `Template Kind`, `Template Notes`,
+  `Template Status`, `Template Status 1`, `Template State`). The board views still group by the
+  template's empty "Notes"/"Template Notes" select (unchanged).
+- Not carried over: the leftover "(old)" link columns (`From (old Notes)`, `Tasks (old)`,
+  `Notes (old)`, `Old project (old)`) — their links are in the backups.
+- **Ideas links**: 77 links from 35 pages (Atomic, Goals) to Ideas couldn't be restored while Ideas
+  is in the trash: `ideas-links-pending-5dbs.json`.
+- 8 "On this topic" links and 8 Goals→Atomic / 1 Reminders→Atomic links in the backups pointed to
+  pages that weren't in Atomic at backup time (the 8 late pages); those pages now carry the links
+  themselves.
+
 ## Still to move
 
 | Database | Database URL | Data source |
 |---|---|---|
-| Atomic | https://app.notion.com/p/4dbcffe7d9a441beba09d43882827ea1 | `cbb37999-b611-429c-b09a-c7454523c16e` |
-| Resources | https://app.notion.com/p/83987c80c97a4fa1a51d88bb21c3c18c | `0315e595-76a7-47d9-9e5d-51e8303563f3` |
-| Projects | https://app.notion.com/p/e15ed6dccc38488385f77972006c6338 | `232b68d1-6d29-40c0-a4f6-3a73ba96a377` |
-| Goals | https://app.notion.com/p/60f30a0ef01c44268b69cadace3f177b | `3a4a0fae-d643-4bb4-96f1-406bba5947bb` |
-| Reminders | https://app.notion.com/p/23213f908e734a63a273e568851fd25b | `bf2f65b2-b0a0-48fd-9065-048e7041d40d` |
 | Ideas | https://app.notion.com/p/e427dc10920c4bf094433b8eb3a40e82 | `dfcccef9-dae7-4ee6-be1a-9288fbec27ca` — **in Notion's trash**; ask Leo before doing anything with it |
-
-For each one, Leo duplicates the Board Template first and tells you which copy is for which database.
 
 ## The method that works
 
@@ -110,9 +139,7 @@ confirm it now starts with its original text. Titles were not touched.
 - **When every database is moved, write Leo a new skill** to replace the out-of-date
   `leo-notion-system` one (he'll add it himself; don't ask him to hand-edit the old one).
   Start from the old skill's text (load `anthropic-skills:leo-notion-system`), keep all its
-  rules, and update: every data source ID to the new board databases (so far Notes →
-  `collection://7f630e5e-46f9-83c9-9856-07a8163e2bb6`, Tasks →
-  `collection://05330e5e-46f9-82d4-91fb-8759c2c55cdb`), the relation column names after the
+  rules, and update: every data source ID to the new board databases (see the Done table above), the relation column names after the
   renames above (the "(old)" columns are leftovers to ignore), the Template-leftover columns
   to ignore, and the board-view rule (never delete or recreate a board view). Save it as a
   `SKILL.md` in this folder (use the `anthropic-skills:skill-creator` skill) and tell Leo how
