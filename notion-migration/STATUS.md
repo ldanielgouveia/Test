@@ -104,6 +104,17 @@ plan: `projects-split-plan.json`.
 - Note: the new Atomic database now shows the title "Notes" and the Notes database "Inbox" in
   Notion (renamed in Notion, not by this session); data source IDs are unchanged.
 
+## Someday tasks tagged (Oct 15)
+
+- Leo asked to tag tasks that aren't necessary or urgent as "someday" and to have a view showing
+  only those. Added a **Someday** checkbox to Tasks and ticked it on **439 of 782** tasks; added a
+  table view **"Someday"** (filter Someday = checked, sorted by Area). Existing "Notes" board untouched.
+- Rule used: ideas, wishes, links, tool/automation ideas, research, setup gear, long-term or
+  "later" plans → Someday. Kept as normal: bills, debt, taxes, meds/health problems, insurance,
+  cancellations, job applications, moving logistics, anything Doing, anything he marked urgent/ASAP.
+- No Status values were changed. List: `someday-tasks.json`; snapshot before: `backup-tasks-before-someday.json`.
+  Verified: the Someday view returns exactly those 439.
+
 ## Still to move
 
 | Database | Database URL | Data source |
