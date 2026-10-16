@@ -1,0 +1,865 @@
+<title>Charge Clarity</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one working column. Summary strip, then trend + categories, then recurring charges, fees, merchants, and the full ledger. */
+:root {
+  --bg: #F3F5F4;
+  --surface: #FFFFFF;
+  --sunk: #E8ECEA;
+  --line: #D6DDDA;
+  --fg: #111815;
+  --muted: #5A6862;
+  --accent: #0D7656;
+  --accent-soft: #D5EDE4;
+  --fee: #C03F0C;
+  --fee-soft: #FBE4D8;
+  --warn: #946006;
+  --warn-soft: #F8EDCB;
+  --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1210; --surface: #151C19; --sunk: #1C2521; --line: #2A3631; --fg: #E6EDE9; --muted: #93A29B;
+    --accent: #3DC598; --accent-soft: #15342A; --fee: #FB8B57; --fee-soft: #3A1F13; --warn: #E6B54B; --warn-soft: #33290F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1210; --surface: #151C19; --sunk: #1C2521; --line: #2A3631; --fg: #E6EDE9; --muted: #93A29B;
+  --accent: #3DC598; --accent-soft: #15342A; --fee: #FB8B57; --fee-soft: #3A1F13; --warn: #E6B54B; --warn-soft: #33290F;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 15px/1.5 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 64px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.wrap > * { min-width: 0; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 { font-size: 1.6rem; font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 700; }
+.num, td.amt, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Top bar */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+.brand { display: grid; gap: 2px; }
+.brand p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+  padding: 8px 14px; cursor: pointer; font-weight: 500; font-size: 0.9rem;
+}
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; }
+.btn.danger { color: var(--fee); }
+
+.banner {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-radius: var(--r); background: var(--warn-soft); color: var(--fg);
+  border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent);
+}
+.banner strong { color: var(--warn); }
+.banner.ok { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+.banner.ok strong { color: var(--accent); }
+.banner p { margin: 0; min-width: 0; }
+
+details.how { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 4px 16px; }
+details.how summary { cursor: pointer; padding: 10px 0; font-weight: 600; }
+details.how ol { margin: 0 0 14px; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
+details.how p { max-width: 70ch; margin: 0 0 14px; color: var(--muted); }
+
+/* Period + KPIs */
+.periodbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.periodbar select { padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.55rem; font-weight: 500; letter-spacing: -0.02em; }
+.kpi .s { font-size: 0.85rem; color: var(--muted); }
+.kpi.alert { border-color: color-mix(in srgb, var(--fee) 45%, var(--line)); background: linear-gradient(var(--fee-soft), var(--surface) 70%); }
+.kpi.alert .v { color: var(--fee); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 12px;
+  grid-template-columns: minmax(0, 1fr); min-width: 0; align-content: start; }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 12px; }
+.panel-head p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.row2 { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; }
+.row2b { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+
+/* Chart */
+#chart { width: 100%; }
+#chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+#chart .bar { cursor: pointer; }
+#chart .bar:hover rect.spend { filter: brightness(1.12); }
+.legend { display: flex; gap: 16px; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+/* Category bars */
+.cats { display: grid; gap: 10px; }
+.cat { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; cursor: pointer; border-radius: 6px; padding: 2px 4px; margin: -2px -4px; background: none; border: 0; text-align: left; }
+.cat:hover { background: var(--sunk); }
+.cat .n { font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cat .a { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.cat .track { grid-column: 1 / -1; height: 6px; background: var(--sunk); border-radius: 3px; overflow: hidden; }
+.cat .fill { height: 100%; background: var(--accent); border-radius: 3px; }
+.cat.fee .fill { background: var(--fee); }
+
+/* Tables */
+.tablebox { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 600; padding: 6px 10px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th.r, td.r, td.amt { text-align: right; white-space: nowrap; }
+td.amt.in { color: var(--accent); }
+td.amt.fee { color: var(--fee); }
+.desc { display: grid; gap: 1px; min-width: 180px; }
+.desc small { color: var(--muted); font-size: 0.75rem; overflow-wrap: anywhere; }
+.pill { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--sunk); color: var(--muted); white-space: nowrap; }
+.pill.up { background: var(--fee-soft); color: var(--fee); }
+.pill.stale { background: var(--warn-soft); color: var(--warn); }
+.pill.ok { background: var(--accent-soft); color: var(--accent); }
+.pill.fee { background: var(--fee-soft); color: var(--fee); }
+.empty { color: var(--muted); font-size: 0.9rem; padding: 8px 0; }
+
+/* Fees */
+.panel, .fees, .cats, .merch, .feeitem, .feeitem ul, .kpi { grid-template-columns: minmax(0, 1fr); }
+.fees { display: grid; gap: 10px; }
+.feeitem { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 6px; }
+.feeitem .h { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.feeitem .h b { font-weight: 600; }
+.feeitem .h .num { color: var(--fee); font-weight: 500; }
+.feeitem p { margin: 0; font-size: 0.85rem; color: var(--muted); max-width: 65ch; }
+.feeitem ul { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; color: var(--muted); display: grid; gap: 2px; }
+.feeitem li { display: flex; justify-content: space-between; gap: 12px; }
+.feeitem li span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.merch { display: grid; gap: 2px; }
+.merch button { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: baseline; padding: 7px 4px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; }
+.merch button:last-child { border-bottom: 0; }
+.merch button:hover { background: var(--sunk); }
+.merch .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.merch .c { font-size: 0.78rem; color: var(--muted); }
+
+/* Ledger filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters input[type="search"] { flex: 1 1 220px; min-width: 0; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); }
+.filters select { padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); max-width: 100%; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: transparent; border-radius: 999px; padding: 5px 12px; font-size: 0.82rem; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.more { justify-self: center; }
+
+.drop {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border: 3px dashed var(--accent); font-family: var(--display); font-size: 1.4rem; color: var(--accent);
+}
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; z-index: 60;
+  max-width: calc(100% - 32px);
+}
+.confirm { display: inline-flex; gap: 6px; align-items: center; font-size: 0.85rem; }
+.privacy { font-size: 0.8rem; color: var(--muted); text-align: center; margin: 0; }
+
+@media (max-width: 860px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .row2, .row2b { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  .kpi .v { font-size: 1.25rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cat .fill { transition: width 0.4s ease; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Charge Clarity</h1>
+      <p>Every charge on your Chase accounts, sorted out.</p>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="importBtn" type="button">Import Chase CSV</button>
+      <input type="file" id="file" accept=".csv,text/csv" multiple hidden>
+      <span id="clearWrap"></span>
+    </div>
+  </header>
+
+  <div class="banner" id="banner"></div>
+
+  <details class="how" id="how">
+    <summary>How to download your activity from Chase</summary>
+    <ol>
+      <li>Sign in at chase.com on a computer. The mobile app can't export files.</li>
+      <li>Open an account (checking or a credit card) and select the download icon above the transaction list.</li>
+      <li>Choose <b>Spreadsheet (Excel, CSV)</b>, pick a date range (a year or more gives the best recurring-charge detection), and download.</li>
+      <li>Repeat for each Chase account, then select <b>Import Chase CSV</b> here, or drop the files onto this page. You can import several at once.</li>
+    </ol>
+    <p>Files are read in this browser only and kept on this device so they're here next time. Nothing is uploaded. Re-importing overlapping date ranges is safe; duplicates are skipped.</p>
+  </details>
+
+  <div class="periodbar">
+    <span class="label" id="periodLabel">Period</span>
+    <select id="period" aria-labelledby="periodLabel"></select>
+    <span class="muted" id="periodNote"></span>
+  </div>
+
+  <section class="kpis" id="kpis" aria-label="Summary"></section>
+
+  <div class="row2">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Monthly spending</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Spending</span><span><i style="background:var(--fee)"></i>Fees &amp; interest</span></div>
+      </div>
+      <div id="chart"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Where it goes</h2><p>Select one to filter the ledger</p></div>
+      <div class="cats" id="cats"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Recurring charges</h2>
+      <p id="recurNote"></p>
+    </div>
+    <div class="tablebox"><table id="recur"></table></div>
+  </section>
+
+  <div class="row2b">
+    <section class="panel">
+      <div class="panel-head"><h2>Fees &amp; interest</h2><p id="feeNote"></p></div>
+      <div class="fees" id="fees"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Top merchants</h2><p>By total spent in period</p></div>
+      <div class="merch" id="merch"></div>
+    </section>
+  </div>
+
+  <section class="panel" id="ledgerPanel">
+    <div class="panel-head"><h2>All transactions</h2><p id="ledgerNote"></p></div>
+    <div class="filters">
+      <input type="search" id="q" placeholder="Search description or merchant" aria-label="Search transactions">
+      <select id="catSel" aria-label="Category"></select>
+      <select id="acctSel" aria-label="Account"></select>
+      <div class="chips" role="group" aria-label="Show">
+        <button class="chip" type="button" data-view="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-view="out" aria-pressed="false">Money out</button>
+        <button class="chip" type="button" data-view="in" aria-pressed="false">Money in</button>
+        <button class="chip" type="button" data-view="fees" aria-pressed="false">Fees</button>
+        <button class="chip" type="button" data-view="recurring" aria-pressed="false">Recurring</button>
+      </div>
+    </div>
+    <div class="tablebox"><table id="ledger"></table></div>
+    <button class="btn more" id="moreBtn" type="button" hidden>Show more</button>
+  </section>
+
+  <p class="privacy">Charge Clarity reads Chase CSV exports in your browser. It isn't affiliated with JPMorgan Chase.</p>
+</div>
+
+<div class="drop" id="drop" hidden>Drop Chase CSV files to import</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+const money0 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const STORE = "charge-clarity-v1";
+const DAY = 864e5;
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+/* ---------- CSV parsing ---------- */
+function parseCSV(text) {
+  const rows = []; let row = []; let f = ""; let q = false;
+  text = text.replace(/^﻿/, "");
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++;
+      row.push(f); f = ""; if (row.some((x) => x.trim() !== "")) rows.push(row); row = [];
+    } else f += c;
+  }
+  row.push(f); if (row.some((x) => x.trim() !== "")) rows.push(row);
+  return rows;
+}
+function toDay(mdy) {
+  const m = String(mdy).trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+  if (!m) return null;
+  let y = +m[3]; if (y < 100) y += 2000;
+  return Math.round(Date.UTC(y, +m[1] - 1, +m[2]) / DAY);
+}
+const dayDate = (d) => new Date(d * DAY);
+const fmtDay = (d) => { const x = dayDate(d); return `${MONTHS[x.getUTCMonth()]} ${x.getUTCDate()}, ${x.getUTCFullYear()}`; };
+const fmtShort = (d) => { const x = dayDate(d); return `${MONTHS[x.getUTCMonth()]} ${x.getUTCDate()}`; };
+const monthKey = (d) => { const x = dayDate(d); return `${x.getUTCFullYear()}-${String(x.getUTCMonth() + 1).padStart(2, "0")}`; };
+const monthName = (k, long) => { const [y, m] = k.split("-"); return long ? `${["January","February","March","April","May","June","July","August","September","October","November","December"][+m - 1]} ${y}` : MONTHS[+m - 1]; };
+
+function accountFromName(name, kind) {
+  const m = name.match(/chase\s*(\d{4})/i) || name.match(/(\d{4})(?!.*\d{4})/);
+  const tail = m ? ` ••${m[1]}` : "";
+  return (kind === "card" ? "Card" : "Checking") + tail;
+}
+
+function rowsToTxns(rows, fileName) {
+  if (!rows.length) throw new Error("The file is empty.");
+  const h = rows[0].map((x) => x.trim().toLowerCase());
+  const idx = (n) => h.indexOf(n);
+  let kind;
+  if (idx("posting date") >= 0 && idx("details") >= 0) kind = "checking";
+  else if (idx("transaction date") >= 0 && idx("category") >= 0) kind = "card";
+  else throw new Error(`${fileName} doesn't look like a Chase activity export. Download it as "Spreadsheet (Excel, CSV)".`);
+  const account = accountFromName(fileName, kind);
+  const out = [];
+  for (const r of rows.slice(1)) {
+    if (kind === "checking") {
+      const day = toDay(r[idx("posting date")]);
+      const amount = parseFloat(String(r[idx("amount")]).replace(/[$,]/g, ""));
+      if (day == null || !isFinite(amount)) continue;
+      out.push(makeTxn({ kind, account, day, desc: r[idx("description")] || "", amount, type: (r[idx("type")] || "").trim(), category: "" }));
+    } else {
+      const day = toDay(r[idx("transaction date")]);
+      const amount = parseFloat(String(r[idx("amount")]).replace(/[$,]/g, ""));
+      if (day == null || !isFinite(amount)) continue;
+      const category = (r[idx("category")] || "").trim();
+      const t = makeTxn({ kind, account, day, desc: r[idx("description")] || "", amount, type: (r[idx("type")] || "").trim(), category });
+      t.chaseCat = category;
+      out.push(t);
+    }
+  }
+  return out;
+}
+
+/* ---------- Merchant names + categories ---------- */
+function titleCase(s) {
+  return s.toLowerCase().replace(/\b([a-z])/g, (c) => c.toUpperCase())
+    .replace(/\b(Atm|Ach|Usa|Us|Hbo|Cps|Att|Llc|Heb|Ai)\b/g, (w) => w.toUpperCase())
+    .replace(/\.Com\b/g, ".com")
+    .replace(/\b\w{1,3}&\w{1,3}\b/g, (w) => w.toUpperCase());
+}
+const KNOWN = [[/^OPENAI/, "OpenAI"], [/^NETFLIX/, "Netflix"], [/^(AMZN MKTP|AMAZON MKTPL|AMAZON\.COM|AMZN\.COM)/, "Amazon"], [/^AMAZON PRIME/, "Amazon Prime"], [/^APPLE\.COM/, "Apple (App Store & iCloud)"], [/^PAYMENT TO CHASE CARD/, "Payment to Chase card"], [/^DOORDASH/, "DoorDash"], [/^H-E-B|^HEB\b/, "H-E-B"], [/^YOUTUBE/, "YouTube"]];
+function knownName(s) {
+  const k = KNOWN.find(([rx]) => rx.test(s));
+  return k ? k[1] : null;
+}
+function merchantName(desc) {
+  let s = desc.toUpperCase().replace(/\s+/g, " ").trim();
+  const ach = s.match(/ORIG CO NAME:\s*(.+?)\s+(ORIG ID|DESC DATE|CO ENTRY)/);
+  if (ach) s = ach[1];
+  let p2p = "";
+  const z = s.match(/^ZELLE (PAYMENT|TRANSFER) (TO|FROM) (.+)$/);
+  if (z) { p2p = z[2] === "TO" ? "Zelle to " : "Zelle from "; s = z[3]; }
+  s = s.replace(/^(RECURRING CARD PURCHASE|CARD PURCHASE WITH PIN|CARD PURCHASE|POS DEBIT|DEBIT CARD PURCHASE|PURCHASE AUTHORIZED ON)\s*/, "");
+  s = s.replace(/\b\d{1,2}\/\d{1,2}(\/\d{2,4})?\b/g, " ").trim();
+  s = s.replace(/^(SQ|TST|SP|DD|IC|PY|BT|EB)\s?\*\s?/, "");
+  s = s.replace(/^(PAYPAL|GOOGLE|APPLE PAY)\s?\*\s?/, "$1 ");
+  s = s.replace(/\*.*$/, "").replace(/#.*$/, "");
+  s = s.replace(/\bCARD\s*\d{4}\b/g, " ");
+  const known = knownName(s);
+  if (known) return p2p + known;
+  let words = s.split(/\s+/).filter((w) => w && !/\d/.test(w) && w !== "-");
+  if (words.length > 1 && /^[A-Z]{2}$/.test(words[words.length - 1]) && words[words.length - 1] !== "US") words.pop();
+  const name = titleCase(words.slice(0, p2p ? 2 : 3).join(" ")).trim();
+  return (p2p + (name || titleCase(desc.slice(0, 28)))).trim();
+}
+
+const RULES = [
+  ["Food & Drink", /UBER\s*EATS|DOORDASH|GRUBHUB|POSTMATES|STARBUCKS|DUNKIN|MCDONALD|CHIPOTLE|CHICK-FIL|WHATABURGER|TACO|PIZZA|DOMINO|SUBWAY|WENDY|BURGER|SONIC DRIVE|PANERA|CAFE|COFFEE|RESTAURANT|GRILL|KITCHEN|BBQ|^TST\*|^SQ \*/],
+  ["Groceries", /H-E-B|\bHEB\b|KROGER|WHOLE FOODS|WHOLEFDS|TRADER JOE|ALDI|SAFEWAY|PUBLIX|SPROUTS|INSTACART|COSTCO|SAM'?S CLUB|WINCO|MEIJER|FOOD LION|GROCERY/],
+  ["Gas", /SHELL|EXXON|CHEVRON|VALERO|\bBP\b|CIRCLE K|QUIKTRIP|\bQT\b|BUC-?EE|7-ELEVEN|SUNOCO|MARATHON|PHILLIPS 66|CONOCO|SPEEDWAY|SUPERCHARGER|EVGO|ELECTRIFY AMERICA|CHARGEPOINT/],
+  ["Entertainment", /NETFLIX|SPOTIFY|HULU|DISNEY|\bHBO\b|\bMAX\.COM|YOUTUBE|PARAMOUNT|PEACOCK|AUDIBLE|XBOX|PLAYSTATION|STEAM|NINTENDO|PATREON|TWITCH|CRUNCHYROLL|SIRIUS|AMC THEAT|CINEMARK|TICKETMASTER/],
+  ["Software & tech", /OPENAI|CHATGPT|ANTHROPIC|CLAUDE\.AI|ADOBE|MICROSOFT|MSFT|GITHUB|DROPBOX|NOTION|ICLOUD|APPLE\.COM|GOOGLE \*|GOOGLE STORAGE|CANVA|ZOOM\.US/],
+  ["Bills & Utilities", /AT&T|\bATT\b|VERIZON|T-MOBILE|TMOBILE|COMCAST|XFINITY|SPECTRUM|CPS ENERGY|SAWS|ELECTRIC|WATER|UTILIT|GOOGLE FI|MINT MOBILE|CRICKET|INSURANCE|GEICO|PROGRESSIVE|STATE FARM|ALLSTATE|USAA/],
+  ["Home", /HOME DEPOT|LOWE'?S|IKEA|WAYFAIR|\bRENT\b|APARTMENT|APTS|MORTGAGE|PROPERTY|HOA\b/],
+  ["Travel", /\bUBER\b|LYFT|AIRLINE|DELTA AIR|UNITED AIR|AMERICAN AIR|SOUTHWEST|SPIRIT AIR|HOTEL|MARRIOTT|HILTON|HYATT|AIRBNB|EXPEDIA|BOOKING\.COM|PARKING/],
+  ["Health & Wellness", /CVS|WALGREENS|PHARMACY|PLANET FITNESS|FITNESS|\bGYM\b|DENTAL|MEDICAL|CLINIC|HOSPITAL|OPTOMETR|VISION/],
+  ["Automotive", /AUTOZONE|O'?REILLY|JIFFY|CAR WASH|\bDMV\b|TOLL|NTTA|TXTAG|HCTRA|DISCOUNT TIRE|FIRESTONE/],
+  ["Shopping", /AMAZON|AMZN|TARGET|WALMART|WAL-MART|BEST BUY|EBAY|ETSY|TJ ?MAXX|MARSHALLS|ROSS STORES|OLD NAVY|NIKE|APPLE STORE|SHEIN|TEMU/],
+];
+const FEE_RX = /\b(FEE|FEES|INTEREST CHARGE|OVERDRAFT|SERVICE CHARGE|NSF|INSUFFICIENT FUNDS|LATE PAYMENT)\b/;
+const CARDPAY_RX = /PAYMENT TO CHASE CARD|CHASE CREDIT CRD|CHASE CARD SERV|AUTOPAY|EPAYMENT|E-PAYMENT|CRCARDPMT|CREDIT CARD PAYMENT|APPLECARD GSBANK|CAPITAL ONE.*PMT|DISCOVER.*PAYMENT/;
+const XFER_RX = /ONLINE TRANSFER (TO|FROM)|TRANSFER (TO|FROM) (SAV|CHK)|ONLINE SCHEDULED TRANSFER|REAL TIME TRANSFER/;
+
+function makeTxn({ kind, account, day, desc, amount, type, category }) {
+  const D = desc.toUpperCase();
+  const t = { kind, account, day, desc: desc.trim(), amount: Math.round(amount * 100) / 100, type, merchant: merchantName(desc), cat: "Other", excluded: false, fee: false };
+  const T = type.toUpperCase();
+  if (kind === "card" && T === "PAYMENT") { t.cat = "Card payments"; t.excluded = true; }
+  else if (kind === "checking" && CARDPAY_RX.test(D)) { t.cat = "Card payments"; t.excluded = true; }
+  else if (XFER_RX.test(D) || T === "ACCT_XFER") { t.cat = "Transfers between accounts"; t.excluded = true; }
+  else if (amount < 0 && (T === "FEE_TRANSACTION" || T === "FEE" || T === "INTEREST" || category === "Fees & Adjustments" || FEE_RX.test(D))) { t.cat = "Fees & interest"; t.fee = true; }
+  else if (amount > 0 && kind === "card") t.cat = "Refunds & credits";
+  else if (amount > 0) t.cat = /PAYROLL|DIR DEP|DIRECT DEP|SALARY|\bADP\b|GUSTO|PAYCHEX/.test(D) ? "Income" : /ZELLE|VENMO|CASH APP/.test(D) ? "Zelle & P2P" : "Deposits";
+  else if (T === "ATM" || /ATM WITHDRAWAL|NON-CHASE ATM WITHDRAW|ATM CASH/.test(D)) t.cat = "Cash & ATM";
+  else if (/ZELLE|VENMO|CASH APP|PAYPAL INST XFER|QUICKPAY/.test(D)) t.cat = "Zelle & P2P";
+  else if (T === "CHECK_PAID" || T === "CHECK" ) t.cat = "Checks";
+  else {
+    const rule = RULES.find(([, rx]) => rx.test(D));
+    if (rule) t.cat = rule[0];
+    else if (category && category !== "Fees & Adjustments") t.cat = category;
+  }
+  if (t.fee && t.merchant.length < 3) t.merchant = titleCase(desc.slice(0, 32));
+  t.key = `${account}|${day}|${t.amount}|${D}`;
+  return t;
+}
+
+/* ---------- Fees explained ---------- */
+const FEE_HELP = [
+  [/MONTHLY SERVICE FEE|SERVICE CHARGE|MAINTENANCE FEE/, "Monthly service fee", "Most Chase checking accounts waive this when you meet a monthly requirement, such as a qualifying direct deposit or keeping a minimum daily balance. Check which waiver your account offers."],
+  [/OVERDRAFT|INSUFFICIENT FUNDS|\bNSF\b|RETURNED ITEM/, "Overdraft or insufficient funds", "Charged when a payment goes through without enough money in checking. Low-balance alerts and linking a savings account for overdraft protection help you avoid it."],
+  [/ATM/, "Out-of-network ATM", "Using a Chase ATM avoids Chase's fee. The ATM's owner may also charge its own surcharge."],
+  [/FOREIGN|INTL|INTERNATIONAL/, "Foreign transaction fee", "A percentage added to purchases processed outside the US, including some online stores. Some Chase cards charge none."],
+  [/LATE/, "Late payment fee", "Autopay for at least the minimum payment prevents this one."],
+  [/INTEREST/, "Interest charge", "Charged when the full statement balance isn't paid by the due date. Paying the statement balance in full each month keeps purchase interest at zero."],
+  [/WIRE/, "Wire transfer fee", "Zelle or a standard ACH transfer is usually free for the same job."],
+  [/ANNUAL|MEMBERSHIP FEE/, "Annual card fee", "Worth checking that the card's benefits are still worth more to you than this."],
+  [/CASH ADVANCE/, "Cash advance fee", "Cash advances also start charging interest right away. A debit-card ATM withdrawal avoids both."],
+  [/./, "Other fees", "If a charge here isn't clear, ask Chase what it is. First-time fees are often refunded on request."],
+];
+const feeKind = (t) => FEE_HELP.find(([rx]) => rx.test(t.desc.toUpperCase())) || FEE_HELP[FEE_HELP.length - 1];
+
+/* ---------- Recurring detection ---------- */
+const BANDS = [
+  ["Weekly", 6, 8, 7], ["Every 2 weeks", 13, 16, 14], ["Monthly", 26, 35, 30.44], ["Every 3 months", 84, 97, 91.3], ["Every 6 months", 175, 190, 182.6], ["Yearly", 350, 380, 365.25],
+];
+// fixed-price subscriptions vs. bills that swing month to month vs. everyday spending
+const EVERYDAY = /Groceries|Gas|Food & Drink|Shopping|Travel|Zelle & P2P/;
+const amtTol = (cat, base) => cat === "Bills & Utilities" ? Math.max(1.5, base * 0.6) : EVERYDAY.test(cat) ? Math.max(0.02, base * 0.01) : Math.max(1.5, base * 0.22);
+const median = (a) => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+
+function detectRecurring(txns, refDay) {
+  const groups = new Map();
+  for (const t of txns) {
+    if (t.amount >= 0 || t.excluded || t.fee || t.cat === "Cash & ATM") continue;
+    if (!groups.has(t.merchant)) groups.set(t.merchant, []);
+    groups.get(t.merchant).push(t);
+  }
+  const found = [];
+  for (const [merchant, list] of groups) {
+    if (list.length < 2) continue;
+    list.sort((a, b) => a.day - b.day);
+    // cluster by amount so one merchant can carry several subscriptions
+    const byAmt = [...list].sort((a, b) => a.amount - b.amount);
+    const clusters = [];
+    for (const t of byAmt) {
+      const c = clusters[clusters.length - 1];
+      const base = c ? -median(c.map((x) => x.amount)) : 0;
+      if (c && Math.abs(-t.amount - base) <= amtTol(t.cat, base)) c.push(t); else clusters.push([t]);
+    }
+    for (const c of clusters) {
+      if (c.length < 2) continue;
+      if (c.length < 3 && (c.length < list.length * 0.5 || EVERYDAY.test(c[0].cat))) continue;
+      if (EVERYDAY.test(c[0].cat) && c.length < list.length * 0.4) continue;
+      c.sort((a, b) => a.day - b.day);
+      const gaps = c.slice(1).map((t, i) => t.day - c[i].day).filter((g) => g > 2);
+      if (!gaps.length) continue;
+      const mg = median(gaps);
+      const band = BANDS.find(([, lo, hi]) => mg >= lo && mg <= hi);
+      if (!band) continue;
+      const steady = gaps.filter((g) => Math.abs(g - mg) <= mg * 0.25 + 3).length;
+      if (steady < gaps.length * 0.7) continue;
+      const last = c[c.length - 1], prev = c[c.length - 2];
+      const amt = -last.amount;
+      const perMonth = (last.cat === "Bills & Utilities" ? median(c.map((x) => -x.amount)) : amt) * (30.44 / band[3]);
+      const next = last.day + Math.round(mg);
+      const stale = refDay - last.day > mg * 1.5 + 5;
+      const firstAmt = -c[0].amount;
+      const amts = c.map((x) => -x.amount);
+      const lo = Math.min(...amts), hi = Math.max(...amts);
+      const varies = last.cat === "Bills & Utilities" && hi - lo > median(amts) * 0.05 ? { lo, hi } : null;
+      found.push({
+        merchant, cat: last.cat, freq: band[0], amount: amt, perMonth, perYear: perMonth * 12,
+        lastDay: last.day, next, count: c.length, account: last.account, stale,
+        varies,
+        rise: !varies && amt > firstAmt * 1.02 + 0.01 ? { from: firstAmt, to: amt, since: (c.find((x) => -x.amount >= amt - 0.01) || last).day } : null,
+        keys: new Set(c.map((x) => x.key + "|" + x.n)),
+      });
+    }
+  }
+  found.sort((a, b) => (a.stale - b.stale) || b.perMonth - a.perMonth);
+  return found;
+}
+
+/* ---------- Sample data ---------- */
+function sampleData() {
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const r = (a, b) => Math.round((a + rnd() * (b - a)) * 100) / 100;
+  const end = Math.round(Date.UTC(2026, 9, 15) / DAY), start = Math.round(Date.UTC(2026, 4, 1) / DAY);
+  const tx = [];
+  const ck = (day, desc, amount, type) => tx.push(makeTxn({ kind: "checking", account: "Checking ••4821", day, desc, amount, type, category: "" }));
+  const cc = (day, desc, amount, category, type) => tx.push(makeTxn({ kind: "card", account: "Card ••7730", day, desc, amount, type: type || (amount < 0 ? "Sale" : "Return"), category }));
+  const md = (d) => { const x = dayDate(d); return `${String(x.getUTCMonth() + 1).padStart(2, "0")}/${String(x.getUTCDate()).padStart(2, "0")}`; };
+  for (let d = start + 4; d <= end; d += 14) ck(d, `ORIG CO NAME:GUSTO ORIG ID:9138864002 DESC DATE:${md(d)} CO ENTRY DESCR:PAYROLL SEC:PPD`, 2140.55, "ACH_CREDIT");
+  for (let m = 4; m <= 9; m++) {
+    const first = Math.round(Date.UTC(2026, m, 1) / DAY);
+    const dom = (n) => first + n - 1;
+    if (first > end) break;
+    ck(dom(1), "ORIG CO NAME:BELL ALAMO HEIGHTS ORIG ID:1460889 CO ENTRY DESCR:RENT SEC:WEB", -1485.00, "ACH_DEBIT");
+    if (dom(9) <= end) ck(dom(9), "ORIG CO NAME:CPS ENERGY ORIG ID:7741056 CO ENTRY DESCR:UTIL PYMT SEC:WEB", -r(88, 168), "ACH_DEBIT");
+    if (dom(12) <= end) ck(dom(12), "ORIG CO NAME:AT&T ORIG ID:9864031 CO ENTRY DESCR:PAYMENT SEC:TEL", -65.00, "ACH_DEBIT");
+    if (dom(17) <= end) ck(dom(17), "ORIG CO NAME:GEICO ORIG ID:5530094 CO ENTRY DESCR:AUTO INS SEC:PPD", -132.40, "ACH_DEBIT");
+    if (dom(3) <= end) ck(dom(3), `Card Purchase ${md(dom(3))} Planet Fitness #0912 San Antonio TX Card 4821`, -24.99, "DEBIT_CARD");
+    if (dom(22) <= end) { const pay = r(900, 1400); ck(dom(22), "Payment To Chase Card Ending IN 7730", -pay, "LOAN_PMT"); cc(dom(22), "Payment Thank You-Mobile", pay, "", "Payment"); }
+    if (m === 5 || m === 7) ck(dom(30), "MONTHLY SERVICE FEE", -15.00, "FEE_TRANSACTION");
+    if (m === 7) { ck(dom(14), "INSUFFICIENT FUNDS FEE FOR A $43.12 CARD PURCHASE - DETAILS: 0813TARGET T-1849 SAN ANTONIO TX", -34.00, "FEE_TRANSACTION"); }
+    if (m === 5 || m === 8) { ck(dom(19), `NON-CHASE ATM WITHDRAW ${md(dom(19))} 8810 BROADWAY SAN ANTONIO TX Card 4821`, -60.00, "ATM"); ck(dom(19), `NON-CHASE ATM FEE-WITH`, -3.00, "FEE_TRANSACTION"); }
+    if (dom(25) <= end) ck(dom(25), `Zelle Payment To Marisol Vega ${88000000 + m * 131}`, -r(40, 120), "QUICKPAY_DEBIT");
+    // card subscriptions
+    const cs = (n, desc, amt, cat) => { if (dom(n) <= end) cc(dom(n), desc, -amt, cat); };
+    cs(4, "NETFLIX.COM", m >= 7 ? 17.99 : 15.49, "Entertainment");
+    cs(8, "Spotify USA", 11.99, "Entertainment");
+    cs(11, "OPENAI *CHATGPT SUBSCR", 20.00, "Shopping");
+    cs(14, "APPLE.COM/BILL", 2.99, "Shopping");
+    cs(20, "APPLE.COM/BILL", 9.99, "Shopping");
+    cs(16, "Amazon Prime*2K7XG91L3", 14.99, "Shopping");
+    if (m <= 6) cs(23, "ADOBE *CREATIVE CLD", 22.99, "Shopping");
+    cs(27, "HULU 877-8244858 CA", 9.99, "Entertainment");
+    if (m === 8) cs(18, "PURCHASE INTEREST CHARGE", 23.41, "Fees & Adjustments");
+    if (m === 6) cs(26, "LATE FEE", 40.00, "Fees & Adjustments");
+    if (m === 9) cs(2, "FOREIGN TRANSACTION FEE", 2.47, "Fees & Adjustments");
+    if (m === 9) cs(2, "SHEIN.COM", 82.30, "Shopping");
+  }
+  for (let d = start; d <= end; d++) {
+    const w = dayDate(d).getUTCDay();
+    if (w === 6) cc(d, "H-E-B #424 SAN ANTONIO TX", -r(58, 148), "Groceries");
+    if (w === 2 || w === 5) cc(d, "STARBUCKS STORE 21877", -r(5.25, 8.9), "Food & Drink");
+    if (rnd() < 0.09) cc(d, "DOORDASH*CHIPOTLE", -r(18, 42), "Food & Drink");
+    if (rnd() < 0.06) cc(d, "TST* LA PANADERIA", -r(9, 26), "Food & Drink");
+    if (w === 1 && rnd() < 0.6) cc(d, "SHELL OIL 57444325", -r(34, 58), "Gas");
+    if (rnd() < 0.08) cc(d, `AMAZON MKTPL*${Math.floor(rnd() * 1e8).toString(36).toUpperCase()}`, -r(12, 96), "Shopping");
+    if (rnd() < 0.04) cc(d, "TARGET 00018491", -r(22, 110), "Shopping");
+    if (rnd() < 0.02) cc(d, "UBER *TRIP", -r(11, 34), "Travel");
+    if (rnd() < 0.012) cc(d, "AMAZON MKTPL*RETURN", r(15, 40), "Shopping");
+  }
+  return assignOrdinals(tx);
+}
+
+/* ---------- State ---------- */
+let state = { txns: [], sample: true, files: [] };
+const ui = { period: "all", q: "", cat: "", acct: "", view: "all", shown: 50 };
+let recurring = [];
+
+function assignOrdinals(list) {
+  const c = new Map();
+  for (const t of list) { const n = (c.get(t.key) || 0) + 1; c.set(t.key, n); t.n = n; }
+  return list;
+}
+function save() {
+  try {
+    const slim = state.txns.map((t) => [t.kind, t.account, t.day, t.desc, t.amount, t.type, t.chaseCat || ""]);
+    localStorage.setItem(STORE, JSON.stringify({ v: 1, files: state.files, rows: slim }));
+  } catch (e) { toast("Couldn't save on this device. Your data will be here until you close the page."); }
+}
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    const txns = d.rows.map(([kind, account, day, desc, amount, type, category]) => { const t = makeTxn({ kind, account, day, desc, amount, type, category }); t.chaseCat = category; return t; });
+    if (!txns.length) return false;
+    state = { txns: assignOrdinals(txns), sample: false, files: d.files || [] };
+    return true;
+  } catch (e) { return false; }
+}
+
+async function importFiles(files) {
+  const real = state.sample ? [] : state.txns.slice();
+  let added = 0, dupes = 0; const errs = []; const names = [];
+  for (const f of files) {
+    try {
+      const text = await f.text();
+      const rows = parseCSV(text);
+      const fresh = rowsToTxns(rows, f.name);
+      // keep within-file repeats (two identical coffees), skip rows already imported
+      const have = new Map(); for (const t of real) have.set(t.key, (have.get(t.key) || 0) + 1);
+      const seen = new Map();
+      for (const t of fresh) {
+        const n = (seen.get(t.key) || 0) + 1; seen.set(t.key, n);
+        if (n <= (have.get(t.key) || 0)) { dupes++; continue; }
+        real.push(t); added++;
+      }
+      names.push(f.name);
+    } catch (e) { errs.push(e.message || `Couldn't read ${f.name}.`); }
+  }
+  if (added || (!state.sample && names.length)) {
+    state = { txns: assignOrdinals(real.sort((a, b) => b.day - a.day)), sample: false, files: [...new Set([...state.files, ...names])] };
+    save();
+    ui.period = "all"; ui.cat = ""; ui.acct = ""; ui.view = "all"; ui.q = ""; ui.shown = 50; $("#q").value = "";
+    render();
+  }
+  if (errs.length) toast(errs.join(" "));
+  else toast(`Imported ${added.toLocaleString()} transaction${added === 1 ? "" : "s"}${dupes ? `, skipped ${dupes.toLocaleString()} already here` : ""}.`);
+}
+/* ---------- Derived views ---------- */
+function refDay() { return state.txns.reduce((m, t) => Math.max(m, t.day), 0); }
+function periodRange() {
+  const ref = refDay();
+  const p = ui.period;
+  if (p === "all") return [-Infinity, Infinity];
+  if (p === "30") return [ref - 29, ref];
+  if (p === "90") return [ref - 89, ref];
+  if (p === "365") return [ref - 364, ref];
+  const [y, m] = p.split("-").map(Number);
+  return [Math.round(Date.UTC(y, m - 1, 1) / DAY), Math.round(Date.UTC(y, m, 1) / DAY) - 1];
+}
+const inPeriod = () => { const [a, b] = periodRange(); return state.txns.filter((t) => t.day >= a && t.day <= b); };
+const isSpend = (t) => t.amount < 0 && !t.excluded;
+const recurKeySet = () => { const s = new Set(); for (const r of recurring) if (!r.stale) for (const k of r.keys) s.add(k); return s; };
+
+/* ---------- Render ---------- */
+function render() {
+  const ref = refDay();
+  recurring = detectRecurring(state.txns, ref);
+  renderBanner(); renderPeriod(); renderKPIs(); renderChart(); renderCats(); renderRecurring(); renderFees(); renderMerchants(); renderFilters(); renderLedger();
+}
+
+function renderBanner() {
+  const b = $("#banner");
+  if (state.sample) {
+    b.className = "banner";
+    b.innerHTML = `<p><strong>Sample data.</strong> These are made-up transactions so you can see how it works. Import your Chase CSV files to see your own.</p><button class="btn" type="button" id="howBtn">Show me how</button>`;
+    $("#howBtn").onclick = () => { $("#how").open = true; $("#how").scrollIntoView({ behavior: "smooth", block: "start" }); };
+  } else {
+    const ds = state.txns.map((t) => t.day);
+    const accts = [...new Set(state.txns.map((t) => t.account))];
+    b.className = "banner ok";
+    b.innerHTML = `<p><strong>Your data.</strong> ${state.txns.length.toLocaleString()} transactions from ${esc(accts.join(", "))}, ${fmtDay(Math.min(...ds))} to ${fmtDay(Math.max(...ds))}. Stored only in this browser.</p>`;
+  }
+  const cw = $("#clearWrap");
+  cw.innerHTML = state.sample ? "" : `<button class="btn ghost danger" type="button" id="clearBtn">Remove my data</button>`;
+  if (!state.sample) $("#clearBtn").onclick = () => {
+    cw.innerHTML = `<span class="confirm">Remove all imported data from this device? <button class="btn danger" type="button" id="yesClear">Remove</button><button class="btn ghost" type="button" id="noClear">Keep</button></span>`;
+    $("#yesClear").onclick = () => { try { localStorage.removeItem(STORE); } catch (e) {} state = { txns: sampleData(), sample: true, files: [] }; ui.period = "all"; render(); toast("Removed. Showing sample data again."); };
+    $("#noClear").onclick = renderBanner;
+  };
+}
+
+function renderPeriod() {
+  const sel = $("#period");
+  const months = [...new Set(state.txns.map((t) => monthKey(t.day)))].sort().reverse();
+  const opts = [["all", "All time"], ["30", "Last 30 days"], ["90", "Last 90 days"], ["365", "Last 12 months"], ...months.map((k) => [k, monthName(k, true)])];
+  if (!opts.some(([v]) => v === ui.period)) ui.period = "all";
+  sel.innerHTML = opts.map(([v, l]) => `<option value="${v}"${v === ui.period ? " selected" : ""}>${l}</option>`).join("");
+  const [a, b] = periodRange();
+  const ds = state.txns.map((t) => t.day);
+  const lo = Math.max(a, Math.min(...ds)), hi = Math.min(b, Math.max(...ds));
+  $("#periodNote").textContent = isFinite(lo) && isFinite(hi) ? `${fmtShort(lo)} – ${fmtDay(hi)}` : "";
+}
+
+function renderKPIs() {
+  const list = inPeriod();
+  const spent = list.filter(isSpend).reduce((s, t) => s - t.amount, 0);
+  const refunds = list.filter((t) => t.amount > 0 && t.cat === "Refunds & credits").reduce((s, t) => s + t.amount, 0);
+  const inflow = list.filter((t) => t.amount > 0 && !t.excluded && t.cat !== "Refunds & credits").reduce((s, t) => s + t.amount, 0);
+  const fees = list.filter((t) => t.fee);
+  const feeSum = fees.reduce((s, t) => s - t.amount, 0);
+  const active = recurring.filter((r) => !r.stale);
+  const recMo = active.reduce((s, r) => s + r.perMonth, 0);
+  const [a, b] = periodRange();
+  const ds = list.map((t) => t.day);
+  const days = ds.length ? (Math.min(b, Math.max(...ds)) - Math.max(a, Math.min(...ds)) + 1) : 0;
+  const perDay = days ? spent / days : 0;
+  $("#kpis").innerHTML = `
+    <div class="kpi"><span class="label">Spent</span><span class="v">${money0.format(spent)}</span><span class="s">${days ? `${money.format(perDay)} a day` : "No spending"}${refunds ? ` · ${money0.format(refunds)} back in refunds` : ""}</span></div>
+    <div class="kpi"><span class="label">Money in</span><span class="v">${money0.format(inflow)}</span><span class="s">${inflow - spent >= 0 ? `${money0.format(inflow - spent)} more than you spent` : `${money0.format(spent - inflow)} more out than in`}</span></div>
+    <div class="kpi${feeSum > 0 ? " alert" : ""}"><span class="label">Fees &amp; interest</span><span class="v">${money.format(feeSum)}</span><span class="s">${fees.length ? `${fees.length} charge${fees.length === 1 ? "" : "s"} you could avoid` : "None in this period"}</span></div>
+    <div class="kpi"><span class="label">Recurring</span><span class="v">${money0.format(recMo)}<span class="muted" style="font-size:.9rem">/mo</span></span><span class="s">${active.length} active · ${money0.format(recMo * 12)} a year</span></div>`;
+}
+
+function niceMax(v) {
+  if (v <= 0) return 100;
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  for (const m of [1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (m * p >= v) return m * p;
+  return 10 * p;
+}
+function renderChart() {
+  const box = $("#chart");
+  const byM = new Map();
+  for (const t of state.txns) {
+    if (!isSpend(t)) continue;
+    const k = monthKey(t.day);
+    const o = byM.get(k) || { spend: 0, fee: 0 };
+    if (t.fee) o.fee -= t.amount; else o.spend -= t.amount;
+    byM.set(k, o);
+  }
+  const keys = [...byM.keys()].sort().slice(-12);
+  if (!keys.length) { box.innerHTML = `<p class="empty">No spending yet.</p>`; return; }
+  const W = Math.max(300, box.clientWidth || 600), H = 230, L = 48, R = 8, T = 22, B = 26;
+  const max = niceMax(Math.max(...keys.map((k) => byM.get(k).spend + byM.get(k).fee)));
+  const y = (v) => T + (H - T - B) * (1 - v / max);
+  const bw = (W - L - R) / keys.length;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map((f) => f * max);
+  const sel = /^\d{4}-\d{2}$/.test(ui.period) ? ui.period : null;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Spending by month">`;
+  for (const v of ticks) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"${v ? ' stroke-dasharray="2 4"' : ""}/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--mono)">${v >= 1000 ? "$" + (v / 1000).toFixed(v % 1000 ? 1 : 0) + "k" : "$" + Math.round(v)}</text>`;
+  keys.forEach((k, i) => {
+    const o = byM.get(k);
+    const x = L + i * bw + bw * 0.18, w = bw * 0.64;
+    const dim = sel && sel !== k ? ' opacity="0.35"' : "";
+    s += `<g class="bar" data-m="${k}"${dim}><title>${monthName(k, true)}: ${money.format(o.spend + o.fee)} spent${o.fee ? `, ${money.format(o.fee)} in fees and interest` : ""}</title>`;
+    s += `<rect x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" fill="transparent"/>`;
+    s += `<rect class="spend" x="${x}" y="${y(o.spend)}" width="${w}" height="${Math.max(0, H - B - y(o.spend))}" rx="3" fill="var(--accent)"/>`;
+    if (o.fee) s += `<rect x="${x}" y="${y(o.spend + o.fee)}" width="${w}" height="${Math.max(2, y(o.spend) - y(o.spend + o.fee))}" fill="var(--fee)"/>`;
+    s += `<text x="${x + w / 2}" y="${y(o.spend + o.fee) - 6}" text-anchor="middle" font-size="10.5" fill="var(--fg)" font-family="var(--mono)">${o.spend + o.fee >= 1000 ? "$" + ((o.spend + o.fee) / 1000).toFixed(1) + "k" : money0.format(o.spend + o.fee)}</text>`;
+    s += `<text x="${x + w / 2}" y="${H - 8}" text-anchor="middle" font-size="11" fill="var(--muted)">${monthName(k)}</text></g>`;
+  });
+  box.innerHTML = s + "</svg>";
+  box.querySelectorAll(".bar").forEach((g) => g.addEventListener("click", () => { ui.period = ui.period === g.dataset.m ? "all" : g.dataset.m; ui.shown = 50; render(); }));
+}
+
+function renderCats() {
+  const list = inPeriod().filter(isSpend);
+  const m = new Map();
+  for (const t of list) m.set(t.cat, (m.get(t.cat) || 0) - t.amount);
+  const rows = [...m.entries()].sort((a, b) => b[1] - a[1]);
+  const total = rows.reduce((s, [, v]) => s + v, 0);
+  const max = rows.length ? rows[0][1] : 1;
+  $("#cats").innerHTML = rows.length ? rows.slice(0, 10).map(([c, v]) => `
+    <button class="cat${c === "Fees & interest" ? " fee" : ""}" type="button" data-cat="${esc(c)}">
+      <span class="n">${esc(c)}</span><span class="a">${money0.format(v)} <span class="muted">${Math.round((v / total) * 100)}%</span></span>
+      <span class="track"><span class="fill" style="width:${(v / max) * 100}%;display:block"></span></span>
+    </button>`).join("") : `<p class="empty">No spending in this period.</p>`;
+  $("#cats").querySelectorAll(".cat").forEach((b) => b.onclick = () => { ui.cat = b.dataset.cat; ui.view = "all"; ui.shown = 50; renderFilters(); renderLedger(); $("#ledgerPanel").scrollIntoView({ behavior: "smooth", block: "start" }); });
+}
+
+function renderRecurring() {
+  const active = recurring.filter((r) => !r.stale);
+  const stale = recurring.filter((r) => r.stale);
+  const rises = active.filter((r) => r.rise);
+  $("#recurNote").textContent = recurring.length ? `${active.length} active${rises.length ? ` · ${rises.length} price increase${rises.length === 1 ? "" : "s"}` : ""}${stale.length ? ` · ${stale.length} stopped` : ""}` : "";
+  if (!recurring.length) { $("#recur").innerHTML = `<tr><td class="empty">No repeating charges found yet. Import a few months of activity to find subscriptions and bills.</td></tr>`; return; }
+  const row = (r) => {
+    let status;
+    if (r.stale) status = `<span class="pill stale">No charge since ${fmtShort(r.lastDay)}</span>`;
+    else if (r.varies) status = `<span class="pill">Varies ${money0.format(r.varies.lo)}–${money0.format(r.varies.hi)}</span>`;
+    else if (r.rise) status = `<span class="pill up">Up from ${money.format(r.rise.from)}</span>`;
+    else status = `<span class="pill ok">Active</span>`;
+    return `<tr${r.stale ? ' style="opacity:.7"' : ""}>
+      <td><div class="desc"><span>${esc(r.merchant)}</span><small>${esc(r.cat)} · ${esc(r.account)} · seen ${r.count}×</small></div></td>
+      <td>${r.freq}</td>
+      <td class="amt">${money.format(r.amount)}</td>
+      <td class="amt">${r.stale ? "—" : money.format(r.perYear)}</td>
+      <td class="r">${r.stale ? "—" : fmtShort(r.next)}</td>
+      <td>${status}</td></tr>`;
+  };
+  $("#recur").innerHTML = `<thead><tr><th>Charge</th><th>How often</th><th class="r">Amount</th><th class="r">Per year</th><th class="r">Next expected</th><th>Status</th></tr></thead><tbody>${active.map(row).join("")}${stale.map(row).join("")}</tbody>`;
+}
+
+function renderFees() {
+  const fees = inPeriod().filter((t) => t.fee);
+  const total = fees.reduce((s, t) => s - t.amount, 0);
+  $("#feeNote").textContent = fees.length ? `${money.format(total)} in this period` : "";
+  if (!fees.length) { $("#fees").innerHTML = `<p class="empty">No fees or interest in this period. Nice.</p>`; return; }
+  const g = new Map();
+  for (const t of fees) { const k = feeKind(t); if (!g.has(k[1])) g.set(k[1], { help: k[2], list: [] }); g.get(k[1]).list.push(t); }
+  const items = [...g.entries()].map(([name, o]) => ({ name, ...o, sum: o.list.reduce((s, t) => s - t.amount, 0) })).sort((a, b) => b.sum - a.sum);
+  $("#fees").innerHTML = items.map((it) => `
+    <div class="feeitem">
+      <div class="h"><b>${esc(it.name)}</b><span class="num">${money.format(it.sum)} · ${it.list.length}×</span></div>
+      <p>${esc(it.help)}</p>
+      <ul>${it.list.sort((a, b) => b.day - a.day).slice(0, 4).map((t) => `<li><span>${fmtShort(t.day)} · ${esc(t.desc)}</span><span class="mono">${money.format(-t.amount)}</span></li>`).join("")}</ul>
+    </div>`).join("");
+}
+
+function renderMerchants() {
+  const m = new Map();
+  for (const t of inPeriod()) {
+    if (!isSpend(t) || t.fee) continue;
+    const o = m.get(t.merchant) || { sum: 0, n: 0, cat: t.cat };
+    o.sum -= t.amount; o.n++; m.set(t.merchant, o);
+  }
+  const rows = [...m.entries()].sort((a, b) => b[1].sum - a[1].sum).slice(0, 8);
+  $("#merch").innerHTML = rows.length ? rows.map(([n, o]) => `<button type="button" data-m="${esc(n)}"><span class="n">${esc(n)}</span><span class="c">${o.n}×</span><span class="mono">${money0.format(o.sum)}</span></button>`).join("") : `<p class="empty">No spending in this period.</p>`;
+  $("#merch").querySelectorAll("button").forEach((b) => b.onclick = () => { ui.q = b.dataset.m; $("#q").value = ui.q; ui.cat = ""; ui.view = "all"; ui.shown = 50; renderFilters(); renderLedger(); $("#ledgerPanel").scrollIntoView({ behavior: "smooth", block: "start" }); });
+}
+
+function renderFilters() {
+  const cats = [...new Set(state.txns.map((t) => t.cat))].sort();
+  if (ui.cat && !cats.includes(ui.cat)) ui.cat = "";
+  $("#catSel").innerHTML = `<option value="">All categories</option>` + cats.map((c) => `<option${c === ui.cat ? " selected" : ""}>${esc(c)}</option>`).join("");
+  const accts = [...new Set(state.txns.map((t) => t.account))].sort();
+  if (ui.acct && !accts.includes(ui.acct)) ui.acct = "";
+  $("#acctSel").innerHTML = `<option value="">All accounts</option>` + accts.map((c) => `<option${c === ui.acct ? " selected" : ""}>${esc(c)}</option>`).join("");
+  $("#acctSel").hidden = accts.length < 2;
+  document.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.view === ui.view)));
+}
+
+function renderLedger() {
+  const rk = recurKeySet();
+  const q = ui.q.trim().toLowerCase();
+  let list = inPeriod().filter((t) =>
+    (!ui.cat || t.cat === ui.cat) && (!ui.acct || t.account === ui.acct) &&
+    (!q || t.desc.toLowerCase().includes(q) || t.merchant.toLowerCase().includes(q)) &&
+    (ui.view === "all" || (ui.view === "out" && t.amount < 0) || (ui.view === "in" && t.amount > 0) || (ui.view === "fees" && t.fee) || (ui.view === "recurring" && rk.has(t.key + "|" + t.n))));
+  list.sort((a, b) => b.day - a.day || a.amount - b.amount);
+  const net = list.reduce((s, t) => s + t.amount, 0);
+  $("#ledgerNote").textContent = `${list.length.toLocaleString()} shown · net ${net < 0 ? "−" : "+"}${money.format(Math.abs(net))}`;
+  const multi = new Set(state.txns.map((t) => t.account)).size > 1;
+  $("#ledger").innerHTML = list.length ? `<thead><tr><th>Date</th><th>Description</th><th>Category</th>${multi ? "<th>Account</th>" : ""}<th class="r">Amount</th></tr></thead><tbody>` +
+    list.slice(0, ui.shown).map((t) => {
+      const tag = t.fee ? ` <span class="pill fee">Fee</span>` : rk.has(t.key + "|" + t.n) ? ` <span class="pill">Recurring</span>` : "";
+      return `<tr><td class="mono" style="white-space:nowrap">${fmtShort(t.day)}</td>
+        <td><div class="desc"><span>${esc(t.merchant)}${tag}</span><small>${esc(t.desc)}</small></div></td>
+        <td style="white-space:nowrap">${esc(t.cat)}</td>${multi ? `<td style="white-space:nowrap" class="muted">${esc(t.account)}</td>` : ""}
+        <td class="amt${t.amount > 0 ? " in" : t.fee ? " fee" : ""}">${t.amount > 0 ? "+" : "−"}${money.format(Math.abs(t.amount))}</td></tr>`;
+    }).join("") + "</tbody>" : `<tr><td class="empty">No transactions match. Try clearing the search or picking another period.</td></tr>`;
+  $("#moreBtn").hidden = list.length <= ui.shown;
+  $("#moreBtn").textContent = `Show more (${(list.length - ui.shown).toLocaleString()} left)`;
+}
+
+/* ---------- Events ---------- */
+let toastTimer;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => (t.hidden = true), 4200); }
+
+$("#importBtn").onclick = () => $("#file").click();
+$("#file").onchange = (e) => { if (e.target.files.length) importFiles([...e.target.files]); e.target.value = ""; };
+$("#period").onchange = (e) => { ui.period = e.target.value; ui.shown = 50; render(); };
+$("#q").oninput = (e) => { ui.q = e.target.value; ui.shown = 50; renderLedger(); };
+$("#catSel").onchange = (e) => { ui.cat = e.target.value; ui.shown = 50; renderLedger(); };
+$("#acctSel").onchange = (e) => { ui.acct = e.target.value; ui.shown = 50; renderLedger(); };
+document.querySelectorAll(".chip").forEach((c) => c.onclick = () => { ui.view = c.dataset.view; ui.shown = 50; renderFilters(); renderLedger(); });
+$("#moreBtn").onclick = () => { ui.shown += 200; renderLedger(); };
+
+let dragDepth = 0;
+addEventListener("dragenter", (e) => { if ([...(e.dataTransfer?.types || [])].includes("Files")) { dragDepth++; $("#drop").hidden = false; e.preventDefault(); } });
+addEventListener("dragover", (e) => { if ([...(e.dataTransfer?.types || [])].includes("Files")) e.preventDefault(); });
+addEventListener("dragleave", () => { dragDepth = Math.max(0, dragDepth - 1); if (!dragDepth) $("#drop").hidden = true; });
+addEventListener("drop", (e) => { e.preventDefault(); dragDepth = 0; $("#drop").hidden = true; const fs = [...(e.dataTransfer?.files || [])].filter((f) => /\.csv$/i.test(f.name) || f.type === "text/csv"); if (fs.length) importFiles(fs); else toast("Drop .csv files downloaded from Chase."); });
+
+let rzT; let lastW = 0;
+addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(() => { const w = $("#chart").clientWidth; if (w !== lastW) { lastW = w; renderChart(); } }, 120); });
+
+if (!load()) state = { txns: sampleData(), sample: true, files: [] };
+render();
+lastW = $("#chart").clientWidth;
+</script>
