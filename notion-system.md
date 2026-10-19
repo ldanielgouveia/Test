@@ -13,6 +13,7 @@ This file explains how Leo's Notion workspace is set up and how to work in it. I
 ## Read this first (for Claude)
 
 - **Words Leo uses.** "Project" means only a flag-icon page made from the project template under Notebooks (*"when i say projects i just mean the template under notebooks that uses the flag icon instead of the notebook icon."*). "Notebook" in his phrase "projects/notebooks" means a notebook-icon topic page. "Notebooks" (capital N) is the database. The numbered rows (1.1 to 9.5) are left over from the old Projects database. They are not projects in his sense.
+- **Only two levels: tasks and projects.** Leo (2026-10-19): *"goals have turned into projects for me. there is either tasks or projects, nothing else. if there is something more longterm it goes under timeline in reminders."* So a goal is a project (a flag page in Notebooks), and anything long-term goes in Reminders with Template Notes = **Timeline**. Don't create goals anywhere.
 - Six databases are in use. They sit at the top of the sidebar in this order: **Notes, Reminders, Tasks, Notebooks, Thoughts, Resources**. Older databases sit in the trash. Do not use them.
 - Two databases were renamed, but the relations that point to them still use the old names:
   - Any relation called **Atomic** points to **Thoughts**.
@@ -50,7 +51,7 @@ This file explains how Leo's Notion workspace is set up and how to work in it. I
 
 **He processes notes with Claude's help.** Each piece of a note is copied word for word into the database where it fits, and linked back to the note. The Notes page itself stays unchanged as the record of what he said, and Processed gets ticked.
 
-**Reminders hold what he must keep remembering.** In his words: *"they update over time, and the notes that are no longer needed as reminders usually end up in one of the other pages depending which it fits best, and usually it fits best goals"*. Goals currently live as old rows inside Notebooks (Claude's reading: Leo hasn't said where goals live in the new structure. See Notebooks).
+**Reminders hold what he must keep remembering.** In his words: *"they update over time, and the notes that are no longer needed as reminders usually end up in one of the other pages depending which it fits best, and usually it fits best goals"*. Goals have since turned into projects, so "goals" here now means project pages in Notebooks. Long-term things stay in Reminders under Timeline.
 
 ```
               anything that comes to mind
@@ -71,7 +72,7 @@ This file explains how Leo's Notion workspace is set up and how to work in it. I
                                                    pages)
      ^                                    |
      +----- reminders no longer needed ---+
-            -> wherever fits best, usually goals (goal rows in Notebooks)
+            -> wherever fits best, usually a project (goals are projects now)
 
  Venting with nothing to file stays in Notes (still ticked Processed).
 ```
@@ -88,11 +89,12 @@ Use this table when filing one piece of a Notes page.
 | Pasted info (AI answer, article) | **Resources** by default (*"usually all the pasted information I try to keep separate"*). Use a project or topic page's database (Inbox = **Resources**) only when the paste is only about that one page (*"some of this info may live in projects/notebooks"*). | Put it in a gray "Pasted" callout. The Notes page keeps the raw paste. |
 | Something he says to do | **Tasks**. If it belongs to one project or topic page, use that page's database instead, with Inbox = **Tasks**. | Only things he says to do. Never turn a want into a task. |
 | Something to keep remembering | **Reminders**. If it only matters for one project or topic page, use that page's database instead, with Inbox = **Reminders**. | Entries there don't appear in the Reminders database. |
-| A reminder he says is no longer needed as a reminder | Wherever it fits best, usually the matching goal row in Notebooks | Copy word for word and link through Goals. The Reminders row stays. |
+| A reminder he says is no longer needed as a reminder | Wherever it fits best, usually the matching project page in Notebooks (its database) | Copy word for word and link through Goals. The Reminders row stays. |
 | A decision about a project or topic | That page's database, Inbox = **Decisions** | No decision fields exist yet. Store just his words. |
 | A decision with no project | **Thoughts**, Type = Decision | This is how it has been done so far. |
 | How to do something | A **guide** in the project or topic page's database (Inbox = **Guides**) | One complete page per subject, built from his words copied exactly (rule 1). Pasted how-to text goes in a gray Pasted callout, and any structure or summary Claude adds goes in a blue callout. If a guide for that subject exists, add to it and keep repeats (rule 9). If no project or topic page fits, file it in Thoughts and suggest a page. Never delete the source notes. |
-| A goal or long-term want | The matching **goal row in Notebooks**, if one exists (link it through Goals). Otherwise **Thoughts**, Type = Want | Where new goals should live is not decided yet. |
+| A goal | It is a project: the matching **project page** in Notebooks. If no project fits, propose one and ask before creating it | Goals are projects now. There are only tasks and projects. |
+| Something long-term | **Reminders**, Template Notes = **Timeline** | Leo's rule for long-term things. |
 | Venting, or a piece that fits no other database | It **stays in Notes**, which already keeps it for future reference | Still tick Processed. |
 
 ### How to process a note
@@ -151,7 +153,7 @@ The body never contains links. All connections are made through relations.
 | Written | date | When he wrote it, if known. |
 | Date is approximate | checkbox | Ticked when the source date had a "~". |
 | How often | select | Options: Daily, Every 3 days, Weekly, Monthly, Yearly. Meant as the re-read cadence, but only 4 rows have a value (all Daily). |
-| Template Notes | select | Options: Timeline, Important. The view groups by it, and it is set only on 3 recent rows. Its purpose is unclear. |
+| Template Notes | select | Options: Timeline, Important. The view groups by it. **Timeline** is where long-term things go (Leo, 2026-10-19). Important: not described yet. |
 | Notes | relation → Notes | The source note. |
 | Atomic | relation → Thoughts | |
 | Goals | relation → Notebooks | |
@@ -169,7 +171,7 @@ The body never contains links. All connections are made through relations.
 
 The body has no links.
 
-**Lifecycle:** reminders *"update over time"*: new ones come in from Notes, and *"the notes that are no longer needed as reminders usually end up in one of the other pages depending which it fits best, and usually it fits best goals"*. When he says a reminder is no longer needed as a reminder, copy it word for word to where it fits best (usually its goal row, linked through the reminder's Goals relation) and tell him where it went. Never decide by yourself that a reminder is no longer needed. Never delete it (rule 2) and never reword it (rule 1). Nothing marks a reminder as moved yet, so the row stays in Reminders. Tell him that, and don't add a property unless he asks (rule 7).
+**Lifecycle:** reminders *"update over time"*: new ones come in from Notes, and *"the notes that are no longer needed as reminders usually end up in one of the other pages depending which it fits best, and usually it fits best goals"*. When he says a reminder is no longer needed as a reminder, copy it word for word to where it fits best (usually its project page, linked through the reminder's Goals relation) and tell him where it went. Never decide by yourself that a reminder is no longer needed. Never delete it (rule 2) and never reword it (rule 1). Nothing marks a reminder as moved yet, so the row stays in Reminders. Tell him that, and don't add a property unless he asks (rule 7).
 
 ## Tasks
 
@@ -201,7 +203,7 @@ The body has no links.
 
 **Templates:** none. A Task type property (Simple/Complex) was planned but never used.
 
-**Habits:** a habit is a row with Type = Habit and uses How often, Do on and Last done. There are 3 habit rows. A scheduled Claude task, "Daily habit refresh", resets daily habits each morning (see Still being built).
+**Habits:** a habit is a row with Type = Habit and uses How often, Do on and Last done. There are 3 habit rows.
 
 **Page bodies:** the layout depends on where the row came from.
 - Sub-tasks are to-do checkboxes.
@@ -297,7 +299,7 @@ Notebooks used to be the Goals database and was renamed, which is why its title 
   - **Obsidian project:** text, a record from the move.
 - Body: a bulleted list of his own words in curly quotes. Each bullet is followed by gray text giving the date or the title of the source note.
 
-**These goal rows are where "goals" live today.** (Claude's reading: Notebooks was the Goals database before he renamed it, so its old goal rows are the closest thing to "goals" now. Leo hasn't said where goals live in the new structure. Don't create a Goals database, page or tag unless he asks, per rule 7.) There is no Goals database and no Goals tag in the page databases. His planning note says: *"However my goals will stay in goals."* Never change State or Status to reached, done or let go (rule 4).
+**Goals have turned into projects** (Leo, 2026-10-19). The old goal rows are leftovers from before: read them for his words, but don't add new goal rows. A new goal is a project page; something long-term goes in Reminders under Timeline. Never change State or Status to reached, done or let go (rule 4).
 
 **Shared properties:**
 - Area: set on the old rows, empty on the new pages.
@@ -432,7 +434,7 @@ This is a list of what is unfinished, not a to-do list. Don't fix, rename, regro
 - Decisions have no fields yet.
 - His planning note also mentions an "Introspection" page (everything about him) and Areas pages, each with its own database. Neither exists. Don't create them unless he asks.
 
-**Goals:** they have no new home. They sit as old rows in Notebooks next to 32 old numbered rows, and only 2 of those rows are Active.
+**Goals:** goals are projects now, but the 160 old goal rows still sit in Notebooks next to 32 old numbered rows. They haven't been turned into project pages yet.
 
 **Content from the old numbered projects is split across three places (none of it is a project in Leo's sense yet):**
 - 32 old numbered rows are in Notebooks.
@@ -468,9 +470,7 @@ This is a list of what is unfinished, not a to-do list. Don't fix, rename, regro
 - There are two Topic lists.
 - Area is a multi-select in Thoughts and Resources, but a single select elsewhere.
 
-**Scheduled Claude tasks point at trashed databases:**
-- **"Go through yesterday's notes"** (daily, 08:52 Los Angeles) reads the trashed first-generation Notes database, so it currently does nothing. New notes are not picked up automatically.
-- **"Daily habit refresh"** (daily, 03:57 Denver) queries the trashed old Tasks database first, then falls back to 3 habit pages hard-coded by id. The fallback still works.
+**Scheduled Claude tasks:** Leo will redo them later. Ignore the existing ones.
 
 ---
 
@@ -506,9 +506,3 @@ This is a list of what is unfinished, not a to-do list. Don't fix, rename, regro
 | Organizing The Notion System (project) | https://app.notion.com/p/3fa30e5e46f9807f8068ca9eea2574b0 | https://app.notion.com/p/3fa30e5e46f9800a8cd1ec0832354a3d | `collection://03130e5e-46f9-82ab-8ff5-87d3d8857812` |
 | Elizabeth April Knowledge (flag icon) | https://app.notion.com/p/fa230e5e46f98254bfa4815af1ba73de | https://app.notion.com/p/8ad30e5e46f9834b8d2d81bbddb32aa0 | `collection://f7330e5e-46f9-83af-ac41-073ea7e6ee4e` |
 
-**Scheduled Claude tasks:**
-
-| Name | Id |
-|---|---|
-| Go through yesterday's notes | `trig_01YT99oFwgCiWpP1kPXMqyBk` |
-| Daily habit refresh | `trig_01VoGJvKzUr6CrRB1DdZGCdc` |
